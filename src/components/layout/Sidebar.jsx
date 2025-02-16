@@ -39,7 +39,7 @@ const Sidebar = ({ articulos = [] }) => {
   return (
     <aside className="lateral">
       <div className="search">
-        <h3 className="title">Buscador</h3>
+        <h2 className="title">Buscador</h2>
         <form onSubmit={hacerBusqueda}>
           <input type="text" name="search_field" />
           <button type="submit" id="search">Buscar</button>
@@ -47,9 +47,9 @@ const Sidebar = ({ articulos = [] }) => {
       </div>
 
       {/* Mostrar títulos de los artículos */}
-      <div className="jumbo">
+      <>
         <div className="ultimos-articulos">
-          <h3>Últimos Artículos</h3>
+          <h2>Últimos Artículos</h2>
           {cargando ? (  // Mostrar cargando mientras los artículos no estén listos
             <p>Cargando...</p>
           ) : (
@@ -58,7 +58,7 @@ const Sidebar = ({ articulos = [] }) => {
                 {articulosAMostrar.map((articulo) => (
                   <li key={articulo._id}>
                     <Link to={`/articulo/${articulo._id}`} key={articulo._id}>
-                      <h2>{articulo.titulo}</h2>
+                      <h3>{articulo.titulo}</h3>
                     </Link>
 
                     {/* Mostrar la fecha con la función formatFecha */}
@@ -92,12 +92,12 @@ const Sidebar = ({ articulos = [] }) => {
             </button>
           )}
         </div>
-      </div>
+      </>
 
-      <section className="section about5" id="about5">
+      <section className="section about">
         <div className="texto-left">
 
-          <div className="foto-about5">
+          <div className="foto-about">
             <img
               className="foto"
               src="/img/nosotras.jpeg"

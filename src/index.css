@@ -214,7 +214,8 @@ h6 {
   border-radius: 5px;
 }
 
-.mascara p {
+.mascara p,
+.ultimos-articulos h4 {
   margin: 5px 0;
   font-size: 20px;
   font-family: "Reenie Beanie", serif;
@@ -256,12 +257,17 @@ h6 {
   background-color: var(--color1); /* Cambio de color al pasar el cursor */
 }
 .jumbo h4,
-.jumbo span {
+.jumbo span,
+.ultimos-articulos h4 {
   color: var(--color2);
   font-size: 25px;
   font-family: "Reenie Beanie", serif;
 }
 /* Estilos para Formularios Generales */
+
+.formulario {
+  width: 90%;
+}
 form {
   background-color: #ffffff; /* Fondo blanco para formularios */
   padding: 25px;
@@ -316,7 +322,11 @@ textarea::placeholder {
 }
 
 /* Estilos para el Botón de Enviar */
-button[type="submit"], input[type="submit"], button[type="button"], .ver-mas, .ver-menos {
+button[type="submit"],
+input[type="submit"],
+button[type="button"],
+.ver-mas,
+.ver-menos {
   background-color: var(--color2);
   color: white;
   width: 100px;
@@ -468,7 +478,6 @@ input[type="time"]:focus {
   border-color: var(--color2);
 }
 
-
 .preview-container {
   margin-top: 15px;
   display: flex;
@@ -486,7 +495,6 @@ input[type="time"]:focus {
   object-fit: cover;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
-
 
 /* Estilo para la Sección Jumbo (Artículo) */
 .jumbo {
@@ -527,24 +535,30 @@ input[type="time"]:focus {
   font-size: 17px;
   margin: 0 auto;
 }
+
+.search {
+  margin-top: 10px;
+}
+
+.ultimos-articulos {
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
 .ultimos-articulos ul {
   list-style: none;
   text-align: left;
-  font-family: "Zen Loop", serif;
-  margin-bottom: 15px;
+  font-size: 15px;
 }
 
 .ultimos-articulos ul li {
-  border-bottom: 1px solid #ccc; /* Cambia #ccc por el color que prefieras */
-  padding-bottom: 5px; /* Opcional, para darle algo de espacio entre el texto y la línea */
-  margin-bottom: 10px; /* Opcional, para darle algo de espacio entre los items */
+  border-bottom: 1px solid #ccc;
+  line-height: 0.7;
 }
-
-.ultimos-articulos a {
-  font-family: "Zen Loop", serif;
-  margin-bottom: 15px;
-}
-
 
 /* Estilo para la imagen del artículo */
 .articulo-mascara {
@@ -613,9 +627,7 @@ input[type="time"]:focus {
   /* margin-bottom: 15px; */
 }
 
-
-
-.portada .button{
+.portada .button {
   position: absolute;
   top: 50%;
   left: 65%;
@@ -637,7 +649,7 @@ input[type="time"]:focus {
   background-color: #d1a1e2; /* Cambio de color al pasar el cursor */
 }
 
-.manifiesto .button{
+.manifiesto .button {
   background-color: var(--color2);
   color: white;
   padding: 12px 25px;
@@ -672,7 +684,6 @@ body {
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
- 
 }
 
 .manifiesto ul {
@@ -685,16 +696,16 @@ body {
   font-weight: lighter;
 }
 
-.manifiesto li{
-font-family: "Reenie Beanie", serif;
-font-size: 25px;
+.manifiesto li {
+  font-family: "Reenie Beanie", serif;
+  font-size: 25px;
 }
 
-.manifiesto h2{
-font-size: 30px;
+.manifiesto h2 {
+  font-size: 30px;
 }
 
-.foto-manifiesto{
+.foto-manifiesto {
   width: 50%;
   height: auto;
 }
@@ -703,26 +714,31 @@ font-size: 30px;
   padding: 60px 0;
 }
 
-.about5 {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.about {
   margin-top: 50px;
   margin-bottom: 50px;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
+}
+
+.foto-about {
+  width: 70%;
+  margin: 0 auto;
 }
 
 .texto-left {
-  width: 60%;
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  flex-direction: column;
 }
 
 .texto-left p {
-  font-family: "Zen Loop", serif;
-  font-size: 20px;
+  font-family: "Reenie Beanie", serif;
+  font-size: 27px;
   line-height: 1.5;
-  color: #131313;
+  color: var(--color1);
+  font-weight: lighter;
 }
 
 .texto-left h2 {
@@ -804,9 +820,6 @@ font-size: 30px;
   padding: 20px;
 }
 
-
-
-
 /* Media Queries para pantallas pequeñas */
 @media screen and (max-width: 768px) {
   /* Ajustes generales */
@@ -853,7 +866,6 @@ font-size: 30px;
     line-height: 1.4;
   }
 
-
   /* Ajustes para artículos */
   .articulo-item {
     flex-direction: column; /* Cambiar de fila a columna */
@@ -878,14 +890,14 @@ font-size: 30px;
     width: 54%;
     font-size: 1.7rem;
     transform: translateX(63%);
-}
+  }
 
   .portada .button {
     left: 50%;
     transform: translateX(32%);
     font-size: 12px;
     padding: 8px 10px;
-}
+  }
 }
 
 @media screen and (max-width: 480px) {

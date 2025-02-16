@@ -9,8 +9,8 @@ const Articulo = () => {
   const params = useParams();
 
   useEffect(() => {
-  conseguirArticulo();
-}, [params.id]);
+    conseguirArticulo();
+  }, [params.id]);
 
 
   const conseguirArticulo = async () => {
@@ -45,12 +45,13 @@ const Articulo = () => {
           <div className="articulo-mascara">
             <img
               src={
-                articulo.imagen !== "default.png"
-                  ? `${Global.url}imagen/${articulo.imagen}`
+                articulo.imagen && articulo.imagen !== "default.png"
+                  ? articulo.imagen  // Aquí ya es la URL completa de Cloudinary
                   : "https://margaritasamedianoche.files.wordpress.com/2023/05/whatsapp-image-2022-11-27-at-12.32.05-1.jpeg"
               }
               alt={`Imagen de ${articulo.titulo}`}
             />
+
           </div>
 
           <h1>{articulo.titulo}</h1>

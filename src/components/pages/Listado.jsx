@@ -29,46 +29,35 @@ const Listado = ({ articulos, setArticulos }) => {
     return (
         articulos.map((articulo) => {
             return (
-                <>
-                    <article key={articulo._id} className="articulo-item">
-                        <div className="mascara">
-                            {articulo.imagen !== "default.png" && <img
-                                src={Global.url + "imagen/" + articulo.imagen}
-                                alt={`Imagen de ${articulo.titulo}`}
-                            />}
+                <article key={articulo._id} className="articulo-item">  {/* Agrega key aquí */}
+                    <div className="mascara">
+                        <img
+                            src={articulo.imagen && articulo.imagen !== "default.png"
+                                ? articulo.imagen
+                                : "https://margaritasamedianoche.files.wordpress.com/2023/05/whatsapp-image-2022-11-27-at-12.32.05-1.jpeg"
+                            }
+                            alt={`Imagen de ${articulo.titulo}`}
+                        />
+                        {articulo.fecha && <p className="fecha">{formatFecha(articulo.fecha)}</p>}
+                    </div>
 
-                            {articulo.imagen === "default.png" && <img
-                                src="https://margaritasamedianoche.files.wordpress.com/2023/05/whatsapp-image-2022-11-27-at-12.32.05-1.jpeg"
-                                alt={`Imagen de ${articulo.titulo}`}
-                            />}
-                            {articulo.autor && <p>Autor: {articulo.autor}</p>}
+                    <div className="datos">
+                        <h3 className="title">{articulo.titulo}</h3>
+                        <p className="description">{articulo.contenido}</p>
+                        <p className="more">
+                            <Link to={"/articulo/" + articulo._id}>Leer más...</Link>
+                        </p>
 
-                            {articulo.fecha && <p>{formatFecha(articulo.fecha)}</p>}
-
-                        </div>
-
-
-
-                        <div className="datos">
-                            <h3 className="title">
-                                {articulo.titulo}
-                            </h3>
-
-
-                            <p className="description">{articulo.contenido}</p>
-                            <p className="more">
-                                <Link to={"/articulo/" + articulo._id}>leer mas...</Link></p>
-
-                            <Link to={"/editar/" + articulo._id} className="edit">Editar</Link>
-                            <button className="delete" onClick={() => {
-                                eliminar(articulo._id)
-                            }}>Borrar</button>
-                        </div>
-                    </article>
-                </>
+                        <Link to={"/editar/" + articulo._id} className="edit">Editar</Link>
+                        <button className="delete" onClick={() => eliminar(articulo._id)}>
+                            Borrar
+                        </button>
+                    </div>
+                </article>
             );
         })
     );
+
 
 }
 

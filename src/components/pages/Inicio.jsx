@@ -22,7 +22,7 @@ const Inicio = () => {
         {!isImageLoaded && <div className="loader">Cargando imagen...</div>}
         <img
           className="foto"
-          src="../../../public/img/fondo-error.jpg"
+          src="img\portada-margaritas.jpg"
           alt="foto de nosotras"
           onLoad={handleImageLoad}
           style={{ display: isImageLoaded ? 'block' : 'none' }}

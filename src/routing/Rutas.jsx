@@ -44,7 +44,7 @@ export const Rutas = () => {
           <Route path='/about' element={<About />} />
         </Routes>
       </section>
-      <Sidebar articulos={articulos} /> {/* Pasar los artículos al Sidebar */}
+      <Sidebar articulos={articulos} />
       <Footer />
     </BrowserRouter>
   )

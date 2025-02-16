@@ -23,7 +23,7 @@ const Inicio = () => {
         <img
           className="foto"
           src="img\portada-margaritas.jpg"
-          alt="foto de nosotras"
+          alt="foto de un libro con margaritas"
           onLoad={handleImageLoad}
           style={{ display: isImageLoaded ? 'block' : 'none' }}
         />

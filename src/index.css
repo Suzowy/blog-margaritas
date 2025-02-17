@@ -913,20 +913,100 @@ font-size: 30px;
     font-size: 40px;
   }
 
+  .manifiesto h2 {
+    margin-top: 50px;
+}
+
   .manifiesto ul {
     font-size: 16px;
   }
 
   .manifiesto li {
-    font-size: 16px;
+    font-size:25px;
   }
 
-  .articulo-item {
-    width: 100%;
-    padding: 10px;
-  }
+  .texto-left {
+    width: 80%;
+    margin: 0 auto;
+}
 
-  .articulo-item .mascara img {
-    width: 100%;
-  }
+.articulo-item {
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  width: 90%;
+}
+.articulo-item .mascara{
+  padding-left: 0px;
+}
+.articulo-item .mascara img {
+  width: 65%;
+  height: 200px;
+  margin: 0 auto;
+}
+.mascara p{
+font-size: 17px;
+}
+
+.datos .title {
+  font-size: 25px;
+}
+
+.ultimos-articulos h2{
+margin-top: 60px;
+margin-bottom: 20px;
+}
+  .ultimos-articulos ul li {
+    font-size: 12px;
+    line-height: 0.5;
+}
+
+.ultimos-articulos h4{
+font-size: 15px;
+font-family: "Reenie Beanie", serif;
+color: var(--color6);
+}
+
+/* articulo detalle  */
+.jumbo .articulo-mascara img {
+  width: 90%;
+}
+.jumbo h1{
+  font-size: 25px;
+  color: var(--color1);
+  margin:0;
+}
+.jumbo h4, .jumbo span {
+  font-size: 20px;
+  line-height: 0.2;
+}
+
+.parrafo {
+  margin: 0 auto;
+  margin-top: 30px;
+  font-size: 27px;
+  text-align: center;
+  font-weight: lighter;
+  color: var(--color1);
+  font-family: "Reenie Beanie", serif;
+}
+
+  .footer .title {
+    font-size: 35px;
+    color: var(--color1);
+}
+
+.footer h5{
+font-size: 15px;
+}
+
+.copy {
+  font-size: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.footer a {
+  font-size: 12px;
+}
 }

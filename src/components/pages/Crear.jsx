@@ -86,6 +86,7 @@ const Crear = () => {
   return (
     <>
       <h1>Crear Artículo</h1>
+      <span className="form-span">Los campos con * son obligatorios</span>
       <strong>{resultado === "guardado" ? "Artículo guardado con éxito!!" : ""}</strong>
       <strong>{resultado === "error" ? "Los datos proporcionados son incorrectos!!" : ""}</strong>
 
@@ -117,7 +118,7 @@ const Crear = () => {
             name="contenido"
             onChange={cambiado}
             onInput={ajustarAltura}
-            placeholder="Escribe tu artículo..."
+            placeholder="Comienza a escribir tu artículo, no te preocupes por el espacio, puedes agregar hasta 6 parrafos más."
             style={{ overflow: "hidden", resize: "none" }}
           />
         </div>
@@ -140,7 +141,7 @@ const Crear = () => {
         </button>
 
         <div className="form-group">
-          <label htmlFor="file0">Imagen <span>*</span></label>
+          <label htmlFor="file0">Imagen <span></span></label>
           <input type="file" name="file0" id="file" onChange={manejarImagen} />
           {imagenPreview && (
             <div className="preview-container">

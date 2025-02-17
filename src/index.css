@@ -104,12 +104,19 @@ h6 {
   grid-area: nav;
   background: linear-gradient(90deg, var(--color2) 10%, var(--color4) 100%);
 }
-
-.nav > ul {
+/* Ocultar la barra de navegación en pantallas pequeñas */
+.nav ul {
   display: flex;
   justify-content: center;
   align-items: center;
   list-style: none;
+  transition: transform 0.3s ease-in-out; /* Añadir transición suave */
+  transform: translateY(-100%); /* Ocultar inicialmente fuera de la vista */
+}
+
+.nav ul.active {
+  display: block;  /* Mostrar cuando se active */
+  transform: translateY(0);
 }
 
 .nav li {
@@ -127,6 +134,17 @@ h6 {
   transition: transform 300ms ease-in-out;
 }
 
+/* Button toggle */
+.toggle-btn {
+  display: none;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: var(--color3);
+  padding: 10px;
+  cursor: pointer;
+  z-index: 100;
+}
 .nav a:hover {
   transform: scale(1.1);
   font-weight: bold;
@@ -202,7 +220,7 @@ h6 {
   text-align: left;
   font-weight: lighter;
   color: var(--color1);
-  font-family: "Reenie Beanie", serif;
+  font-family: "Zen Loop", serif;
 }
 
 .articulo-item .mascara img {
@@ -314,7 +332,11 @@ textarea::placeholder {
 }
 
 /* Estilos para el Botón de Enviar */
-button[type="submit"], input[type="submit"], button[type="button"], .ver-mas, .ver-menos {
+button[type="submit"],
+input[type="submit"],
+button[type="button"],
+.ver-mas,
+.ver-menos {
   background-color: var(--color2);
   color: white;
   width: 100px;
@@ -333,6 +355,12 @@ button[type="button"]:hover,
 .ver-mas:hover,
 .ver-menos:hover {
   background-color: var(--color1); /* Color al pasar el cursor */
+}
+
+.form-span, span {
+  font-size: 25px;
+  font-family: "Reenie Beanie", serif;
+  color: var(--color6);
 }
 
 .agregar-mas {
@@ -466,7 +494,6 @@ input[type="time"]:focus {
   border-color: var(--color2);
 }
 
-
 .preview-container {
   margin-top: 15px;
   display: flex;
@@ -484,7 +511,6 @@ input[type="time"]:focus {
   object-fit: cover;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
-
 
 /* Estilo para la Sección Jumbo (Artículo) */
 .jumbo {
@@ -543,6 +569,14 @@ input[type="time"]:focus {
   margin-bottom: 15px;
 }
 
+.ultimos-articulos h2 {
+  margin-top: 100px;
+}
+.ultimos-articulos h4 {
+  font-size: 17px;
+  font-family: "Reenie Beanie", serif;
+  color: var(--color6);
+}
 
 /* Estilo para la imagen del artículo */
 .articulo-mascara {
@@ -589,22 +623,22 @@ input[type="time"]:focus {
 
 .foto {
   width: 100%;
-  height: 100%;
+  height:100%;
   object-fit: cover;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .portada blockquote {
   position: absolute;
-  top: 14%;
+  top: 3%;
   left: 0%;
-  width: 40%;
-  transform: translateX(122%);
+  width: 35%;
+  transform: translateX(22%);
   color: white;
   padding: 0 10px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.724);
+  text-shadow: 2px 2px 4px rgb(47 47 47);
   z-index: 10;
-  font-size: 2.3rem;
+  font-size: 45px;
   display: block;
   font-family: "Reenie Beanie", serif;
   font-weight: lighter;
@@ -613,29 +647,7 @@ input[type="time"]:focus {
 
 
 
-.portada .button{
-  position: absolute;
-  top: 50%;
-  left: 65%;
-  /* transform: translateX(50%); */
-  background-color: var(--color2);
-  color: white;
-  padding: 12px 25px;
-  font-size: 16px;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
-  /* margin-left: 20px; */
-  z-index: 10;
-  transition: background-color 300ms ease;
-}
-
-.portada .button:hover {
-  background-color: #d1a1e2; /* Cambio de color al pasar el cursor */
-}
-
-.manifiesto .button{
+.manifiesto .button {
   background-color: var(--color2);
   color: white;
   padding: 12px 25px;
@@ -670,7 +682,6 @@ body {
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
- 
 }
 
 .manifiesto ul {
@@ -683,16 +694,16 @@ body {
   font-weight: lighter;
 }
 
-.manifiesto li{
-font-family: "Reenie Beanie", serif;
-font-size: 25px;
+.manifiesto li {
+  font-family: "Reenie Beanie", serif;
+  font-size: 25px;
 }
 
-.manifiesto h2{
-font-size: 30px;
+.manifiesto h2 {
+  font-size: 30px;
 }
 
-.foto-manifiesto{
+.foto-manifiesto {
   width: 50%;
   height: auto;
 }
@@ -701,7 +712,7 @@ font-size: 30px;
   padding: 60px 0;
 }
 
-.about5 {
+.about {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -714,11 +725,13 @@ font-size: 30px;
 
 .texto-left {
   width: 60%;
+  margin: 0 auto;
 }
 
 .texto-left p {
   font-family: "Zen Loop", serif;
   font-size: 20px;
+  text-align: justify;
   line-height: 1.5;
   color: #131313;
 }
@@ -802,9 +815,6 @@ font-size: 30px;
   padding: 20px;
 }
 
-
-
-
 /* Media Queries para pantallas pequeñas */
 @media screen and (max-width: 768px) {
   /* Ajustes generales */
@@ -826,13 +836,23 @@ font-size: 30px;
   }
 
   .nav ul {
-    flex-direction: column;
-    padding: 10px 0;
+    display: none;
+    width: 100%;
+    text-align: center;
+
   }
 
-  .nav li {
-    padding: 5px;
-  }
+  .nav ul.active {
+    display: block;
+    transform: translateY(0);
+    margin-left: -20px;
+}
+
+.toggle-btn {
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
 
   .content {
     width: 100%;
@@ -850,7 +870,6 @@ font-size: 30px;
     font-size: 18px;
     line-height: 1.4;
   }
-
 
   /* Ajustes para artículos */
   .articulo-item {
@@ -876,137 +895,127 @@ font-size: 30px;
     width: 54%;
     font-size: 1.7rem;
     transform: translateX(63%);
-}
+  }
 
   .portada .button {
     left: 50%;
     transform: translateX(32%);
     font-size: 12px;
     padding: 8px 10px;
-}
+  }
 }
 
 @media screen and (max-width: 480px) {
   .portada blockquote {
-    width: 90%;
-    color: var(--color1);
-    font-size: 2.7rem;
-    transform: translateX(-6%);
+    width: 69%;
+    font-size: 34px;
+    transform: translateX(5%);
 }
 
-.portada .button {
-  top: 85%;
-  left: 27%;
-  transform: translateX(32%);
-  font-size: 12px;
-  padding: 8px 10px;
-}
 
-  .foto-portada .foto {
-    width: 163%;
-    height: 100%;
-    translate: 0%;
-    object-fit: cover;
-    opacity: 0.5;
-}
   .header h1 {
     font-size: 40px;
   }
 
   .manifiesto h2 {
     margin-top: 50px;
-}
+  }
 
   .manifiesto ul {
     font-size: 16px;
   }
 
   .manifiesto li {
-    font-size:25px;
+    font-size: 25px;
   }
 
   .texto-left {
     width: 80%;
+  }
+
+  .articulo-item {
     margin: 0 auto;
-}
+    margin-top: 50px;
+    margin-bottom: 20px;
+    width: 90%;
+  }
+  .articulo-item .mascara {
+    padding-left: 0px;
+  }
+  .articulo-item .mascara img {
+    width: 65%;
+    height: 200px;
+    margin: 0 auto;
+  }
+  .mascara p {
+    font-size: 17px;
+  }
 
-.articulo-item {
-  margin: 0 auto;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  width: 90%;
-}
-.articulo-item .mascara{
-  padding-left: 0px;
-}
-.articulo-item .mascara img {
-  width: 65%;
-  height: 200px;
-  margin: 0 auto;
-}
-.mascara p{
-font-size: 17px;
-}
+  .datos .title {
+    font-size: 25px;
+  }
 
-.datos .title {
-  font-size: 25px;
-}
-
-.ultimos-articulos h2{
-margin-top: 60px;
-margin-bottom: 20px;
-}
+  .ultimos-articulos h2 {
+    margin-top: 60px;
+    margin-bottom: 20px;
+  }
   .ultimos-articulos ul li {
     font-size: 12px;
     line-height: 0.5;
-}
+  }
 
-.ultimos-articulos h4{
-font-size: 15px;
-font-family: "Reenie Beanie", serif;
-color: var(--color6);
-}
+  .ultimos-articulos h4 {
+    font-size: 15px;
+    font-family: "Reenie Beanie", serif;
+    color: var(--color6);
+  }
 
-/* articulo detalle  */
-.jumbo .articulo-mascara img {
-  width: 90%;
-}
-.jumbo h1{
-  font-size: 25px;
-  color: var(--color1);
-  margin:0;
-}
-.jumbo h4, .jumbo span {
-  font-size: 20px;
-  line-height: 0.2;
-}
+  /* articulo detalle  */
+  .jumbo .articulo-mascara img {
+    width: 90%;
+  }
+  .jumbo h1 {
+    font-size: 25px;
+    color: var(--color1);
+    margin: 0;
+  }
+  .jumbo h4,
+  .jumbo span {
+    font-size: 20px;
+    line-height: 0.2;
+  }
 
-.parrafo {
-  margin: 0 auto;
-  margin-top: 30px;
-  font-size: 27px;
-  text-align: center;
-  font-weight: lighter;
-  color: var(--color1);
-  font-family: "Reenie Beanie", serif;
-}
+  .parrafo {
+    margin: 0 auto;
+    margin-top: 30px;
+    font-size: 20px;
+    text-align: justify;
+    font-weight: lighter;
+    color: var(--color1);
+  }
+
+  form {
+    padding: 14px;
+    margin: 50px auto;
+    width: 90%;
+  }
 
   .footer .title {
     font-size: 35px;
     color: var(--color1);
-}
+  }
 
-.footer h5{
-font-size: 15px;
-}
+  .footer h5 {
+    font-size: 15px;
+  }
 
-.copy {
-  font-size: 10px;
-  padding: 5px;
-  margin-bottom: 10px;
-}
+  .copy {
+    font-size: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
 
-.footer a {
-  font-size: 12px;
-}
+  .footer a {
+    font-size: 12px;
+  }
 }

@@ -1,6 +1,6 @@
 
 const Global = {
-    url: "https://back-blog-six.vercel.app/api/"
+    url: "https://back-blog-phi.vercel.app/api/"
   };
 
   export default Global;

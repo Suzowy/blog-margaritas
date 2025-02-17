@@ -108,6 +108,7 @@ h6 {
 .nav ul {
   display: flex;
   justify-content: center;
+  margin-top: 35px;
   align-items: center;
   list-style: none;
   transition: transform 0.3s ease-in-out; /* Añadir transición suave */
@@ -172,7 +173,7 @@ h6 {
   border-radius: 5px;
   border-bottom: 1px solid #bcbbbb;
   overflow: hidden;
-  background-color: #ffffff58;
+  background-color: #ffffff42;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 300ms ease-in-out;
   flex-direction: row;
@@ -279,7 +280,7 @@ h6 {
 }
 /* Estilos para Formularios Generales */
 form {
-  background-color: #ffffff; /* Fondo blanco para formularios */
+  background-color: #ffffff11; /* Fondo blanco para formularios */
   padding: 25px;
   border-radius: 15px; /* Bordes redondeados */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
@@ -797,12 +798,18 @@ body {
   margin-bottom: 30px;
 }
 
+
+
 .footer a {
   text-decoration: underline;
   font-weight: 500;
   transition: transform 300ms ease-in-out, color 300ms ease-in-out,
     font-weight 300ms ease-in-out;
 }
+
+.copy a{
+  text-decoration: none;
+  }
 
 .footer a:hover {
   transform: scale(1.1);

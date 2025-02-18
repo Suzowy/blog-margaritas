@@ -40,7 +40,7 @@ blockquote::after {
 
 :root {
   --color1: #2f2f2fe7;
-  --color2: #adcec2;
+  --color2: #97afa6;
   --color3: #ebe9e5;
   --color4: #b4aa94;
   --color5: #bbb2a1;
@@ -547,10 +547,17 @@ input[type="time"]:focus {
   width: 80%;
 }
 
-.lateral .jumbo h2,
-.lateral .jumbo h4 {
-  font-size: 17px;
-  margin: 0 auto;
+.lateral  h2, 
+.manifiesto h2,
+ .crear-tittle, 
+ .about .texto-left h2 {
+  font-size: 25px;
+  margin: 0px auto;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  font-weight: 200;
+  text-transform: uppercase;
+  color: var(--color6);
 }
 .ultimos-articulos ul {
   list-style: none;
@@ -622,28 +629,27 @@ input[type="time"]:focus {
   z-index: 1;
 }
 
-.foto {
+.foto-portada .foto {
   width: 100%;
-  height:100%;
+  height: 100%;
   object-fit: cover;
   opacity: 0.7;
+  filter: drop-shadow(-15px -5px 14px grey);
+  object-position: center bottom;
 }
+
 
 .portada blockquote {
   position: absolute;
-  top: 3%;
-  left: 0%;
-  width: 35%;
-  transform: translateX(22%);
+  top: 8%;
+  width: 50%;
   color: white;
+  text-transform: uppercase;
   padding: 0 10px;
-  text-shadow: 2px 2px 4px rgb(47 47 47);
+  text-shadow: 7px 5px 6px rgb(0, 0, 0);
   z-index: 10;
-  font-size: 45px;
-  display: block;
-  font-family: "Reenie Beanie", serif;
-  font-weight: lighter;
-  /* margin-bottom: 15px; */
+  font-size: 40px;
+  font-weight: 200;
 }
 
 
@@ -698,6 +704,7 @@ body {
 .manifiesto li {
   font-family: "Reenie Beanie", serif;
   font-size: 25px;
+  color: #3a3a3a;
 }
 
 .manifiesto h2 {
@@ -738,7 +745,7 @@ body {
 
 .texto-left p {
   font-family: "Zen Loop", serif;
-  font-size: 20px;
+  font-size: 25px;
   text-align: justify;
   line-height: 1.5;
   color: #131313;
@@ -905,11 +912,7 @@ body {
   }
 
   /* Ajustes para la portada */
-  .portada blockquote {
-    width: 54%;
-    font-size: 1.7rem;
-    transform: translateX(63%);
-  }
+
 
   .portada .button {
     left: 50%;
@@ -921,9 +924,8 @@ body {
 
 @media screen and (max-width: 480px) {
   .portada blockquote {
-    width: 69%;
-    font-size: 34px;
-    transform: translateX(5%);
+    width: 80%;
+    font-size: 28px;
 }
 
 

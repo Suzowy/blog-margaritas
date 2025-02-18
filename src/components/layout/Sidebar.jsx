@@ -93,8 +93,9 @@ const Sidebar = ({ articulos = [] }) => {
           )}
         </div>
       </>
-
+      <h2>¿Quienes somos?</h2>
       <section className="section about">
+     
         <div className="texto-left">
 
           <div className="foto-about">

@@ -43,7 +43,7 @@ const Footer = () => {
         <ul className="datos">
           <li>
           <Link to="/about" className="underline">
-              Quiénes somos
+              ¿Quiénes somos?
             </Link>
           </li>
         </ul>

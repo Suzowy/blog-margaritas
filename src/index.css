@@ -1,29 +1,26 @@
 :root {
   --fuente-principal: "Ysabeau SC", serif;
+  --fuente-secundaria: "Poiret One", serif;
+  --fuente-handmade: "Reenie Beanie", serif;
 }
 
-.estilo-letra {
+/* Clases para Aplicar Fuentes */
+.Ysabeau-SC {
   font-family: var(--fuente-principal);
-  font-weight: 600;
+  font-weight: lighter;
   font-style: normal;
 }
 
-.zen-loop-regular {
-  font-family: "Zen Loop", serif;
-  font-weight: 400;
+.poiret-one-regular {
+  font-family: var(--fuente-secundaria);
+  font-weight:400;
   font-style: normal;
 }
 
-.reenie-beanie-regular {
-  font-family: "Reenie Beanie", serif;
-  font-weight: 400;
-  font-style: normal;
-}
 
-.league-script-regular {
-  font-family: "League Script", serif;
-  font-weight: 400;
-  font-style: normal;
+.reenie-beanie {
+  font-family: var(--fuente-handmade);
+  font-weight: lighter;
 }
 
 blockquote {
@@ -39,7 +36,7 @@ blockquote::after {
 }
 
 :root {
-  --color1: #2f2f2fe7;
+  --color1: #2f2f2fe9;
   --color2: #97afa6;
   --color3: #ebe9e5;
   --color4: #b4aa94;
@@ -90,7 +87,7 @@ h6 {
 }
 
 .header h1 {
-  font-family: "Reenie Beanie", serif;
+  font-family: var(--fuente-handmade);
   font-size: 70px;
   font-weight: lighter;
   font-style: oblique;
@@ -116,7 +113,7 @@ h6 {
 }
 
 .nav ul.active {
-  display: block;  /* Mostrar cuando se active */
+  display: block; /* Mostrar cuando se active */
   transform: translateY(0);
 }
 
@@ -164,9 +161,34 @@ h6 {
   align-content: center;
   align-items: center;
 }
+
+.jumbo {
+  position: relative;
+  background-color: #ffffffdf;
+  padding: 30px;
+  margin: 0 auto;
+  margin-top: 63px;
+  margin-bottom: 63px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  text-align: l;
+}
+
+.parrafo {
+  padding: 20px;
+  text-align: justify;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+.parrafo p {
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
 .articulo-item {
   display: flex;
-  width: 70%;
+  width: 90%;
   height: 400px;
   margin-top: 30px;
   margin-bottom: 10px;
@@ -174,18 +196,20 @@ h6 {
   border-bottom: 1px solid #bcbbbb;
   overflow: hidden;
   background-color: #ffffff42;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 300ms ease-in-out;
+  box-shadow: 0 4px 8px rgba(48, 48, 48, 0.1);
+ 
   flex-direction: row;
   flex-wrap: nowrap;
   /* align-content: center; */
   justify-content: center;
   align-items: center;
+  transition: transform 300ms ease-in-out;
 }
 
-/* .articulo-item:hover{
-  transform: translateY(-3px);
-} */
+ .articulo-item:hover{
+  transform: translateY(-2px);
+  box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
+} 
 
 .articulo-item .mascara {
   width: 50%;
@@ -215,15 +239,6 @@ h6 {
   color: var(--color6);
 }
 
-.parrafo {
-  margin: 30px;
-  font-size: 25px;
-  text-align: left;
-  font-weight: lighter;
-  color: var(--color1);
-  font-family: "Zen Loop", serif;
-}
-
 .articulo-item .mascara img {
   width: 100%;
   height: 300px;
@@ -234,7 +249,7 @@ h6 {
 .mascara p {
   margin: 5px 0;
   font-size: 20px;
-  font-family: "Reenie Beanie", serif;
+  font-family: var(--fuente-handmade);
   color: var(--color6);
 }
 
@@ -245,13 +260,17 @@ h6 {
 
 .articulo-item .datos .description {
   font-size: 17px;
-  font-family: "Zen Loop", serif;
-  text-transform: lowercase;
   font-weight: 500;
   color: var(--color1);
   margin-bottom: 20px;
-  height: 80px;
+  height: 95px;
   overflow: hidden;
+}
+
+.articulo-item .datos .description p, span{
+  font-family: var(--fuente-secundaria) !important;
+  font-size: 17px !important;
+  color: var(--color1)!important;
 }
 
 .articulo-item .edit,
@@ -262,8 +281,9 @@ h6 {
   padding: 10px 15px;
   border-radius: 25px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 10px;
+  margin-left: 10px;
   margin-right: 10px;
   transition: background-color 300ms ease;
 }
@@ -272,36 +292,30 @@ h6 {
 .articulo-item .delete:hover {
   background-color: var(--color1); /* Cambio de color al pasar el cursor */
 }
-.jumbo h4,
-.jumbo span {
-  color: var(--color2);
-  font-size: 25px;
-  font-family: "Reenie Beanie", serif;
-}
+
 /* Estilos para Formularios Generales */
 form {
-  background-color: #ffffff11; /* Fondo blanco para formularios */
   padding: 25px;
-  border-radius: 15px; /* Bordes redondeados */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 15px;
+  box-shadow: 0px 4px 16px rgb(255, 255, 255);
   margin: 20px auto;
-  width: 80%; /* Ancho flexible */
-  max-width: 600px; /* Ancho máximo */
+  width: 80%;
+  max-width: 700px;
 }
 
 /* Estilos de Inputs y Textareas */
 input[type="text"],
 input[type="email"],
 input[type="password"],
-textarea,
 select {
   width: 100%;
   padding: 12px 15px;
-  margin-bottom: 15px; /* Espacio entre campos */
-  background-color: #f9fafc; /* Fondo suave */
-  border: 1px solid #ddd; /* Borde sutil */
-  border-radius: 10px; /* Bordes redondeados */
-  font-size: 14px;
+  font-family: var(--fuente-secundaria);
+  margin-bottom: 15px;
+  background-color: #f9fafc;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 17px;
   color: var(--color1);
   outline: none;
   transition: border-color 300ms ease;
@@ -313,14 +327,16 @@ input[type="email"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--color2); /* Cambio de borde al enfocar */
+  border-color: var(--color2);
 }
 
 /* Estilos de Etiquetas */
 label {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
+  font-family: var(--fuente-principal);
   color: var(--color1);
+  margin-top: 10px;
   margin-bottom: 5px;
   display: block;
 }
@@ -328,8 +344,134 @@ label {
 input::placeholder,
 textarea::placeholder {
   color: #424242;
-  font-family: "Zen Loop", serif;
+  font-family: var(--fuente-secundaria);
   font-size: 17px;
+}
+
+/* Contenedor del editor */
+
+/* Forzar la fuente principal en todo el editor */
+.ql-editor {
+  font-family: var(--fuente-secundaria) !important;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.ql-editor strong,
+.ql-editor em,
+.ql-editor u,
+.ql-editor span,
+.ql-editor p,
+.jumbo p,
+.jumbo strong,
+.jumbo u,
+.jumbo a {
+  font-family: var(--fuente-secundaria) !important;
+  color: var(--color1) !important;
+  font-size: 20px;
+}
+
+.ql-editor span[style*="font-size"] {
+  font-family: var(--fuente-secundaria) !important;
+}
+
+/* Corrección para los encabezados */
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+  font-family: var(--fuente-secundaria) !important;
+}
+
+.ql-container {
+  font-family: var(--fuente-secundaria);
+  font-size: 16px;
+  background: #fff;
+  color: #333;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  padding: 10px;
+  min-height: 250px;
+}
+
+/* Barra de herramientas */
+.ql-toolbar {
+  border-radius: 10px 10px 0 0;
+  background: #f8f8f8;
+  border: 2px solid #ccc;
+  padding: 8px;
+}
+
+/* Iconos de la barra de herramientas */
+.ql-toolbar button {
+  color: #333;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.ql-toolbar button:hover {
+  background: #ddd;
+}
+
+/* Botones activos en la barra de herramientas */
+.ql-toolbar button.ql-active {
+  background: #bbb;
+  color: #fff;
+}
+
+/* Área de edición */
+.ql-editor {
+  font-family: var(--fuente-secundaria);
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 10px;
+}
+
+/* Placeholder (texto de ayuda) */
+.ql-editor::before {
+  font-family: var(--fuente-secundaria);
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Estilos personalizados para los bloques de cita */
+.ql-editor blockquote,
+.jumbo blockquote {
+  font-family: var(--fuente-handmade) !important;
+  color: var(--color1);
+  font-size: 25px;
+}
+
+/* Estilos para enlaces */
+.ql-editor a,
+.jumbo a,
+.jumbo em {
+  color: var(--color6);
+  font-family: var(--fuente-secundaria);
+  font-style: oblique;
+  text-decoration: 1px solid #3e7b6ee2 underline;
+  font-weight: 600;
+  transition: all 100ms ease-in;
+}
+
+.jumbo a:hover,
+.ql-editor a:hover {
+  font-weight: bold;
+  color: #044e83;
+}
+
+h4.autor,
+span.fecha {
+  font-family: var(--fuente-handmade) !important;
+  color: var(--color6) !important;
+  font-size: 20px;
+}
+
+.ql-editor p {
+  font-family: var(--fuente-secundaria);
+  font-size: 20px;
 }
 
 /* Estilos para el Botón de Enviar */
@@ -355,18 +497,14 @@ input[type="submit"]:hover,
 button[type="button"]:hover,
 .ver-mas:hover,
 .ver-menos:hover {
-  background-color: var(--color1); /* Color al pasar el cursor */
+  background-color: var(--color1);
 }
 
-.form-span, span {
+.form-span,
+span {
   font-size: 25px;
-  font-family: "Reenie Beanie", serif;
+  font-family: var(--fuente-secundaria);
   color: var(--color6);
-}
-
-.agregar-mas {
-  margin-bottom: 50px;
-  width: 500px;
 }
 
 .form-group .mascara {
@@ -390,13 +528,13 @@ button[type="button"]:hover,
 }
 
 .error {
-  background-color: #f8d7da; /* Rojo suave */
-  color: #721c24; /* Color para texto de error */
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .success {
-  background-color: #d4edda; /* Verde suave */
-  color: #155724; /* Color para texto de éxito */
+  background-color: #d4edda;
+  color: #155724;
 }
 
 /* Estilos para el Formulario de Búsqueda */
@@ -419,7 +557,7 @@ button[type="button"]:hover,
   color: white;
   border-radius: 25px;
   border: none;
-  padding: 12px 25px;
+  padding: 12px 15px;
   margin-left: 10px;
   cursor: pointer;
 }
@@ -441,7 +579,9 @@ button[type="button"]:hover,
 
 .edit-form .form-group input,
 .edit-form .form-group textarea,
-.edit-form .form-group select {
+.edit-form .form-group select,
+input[type="date"],
+input[type="time"] {
   width: 100%;
   padding: 12px;
   border-radius: 10px;
@@ -452,7 +592,9 @@ button[type="button"]:hover,
 
 .edit-form .form-group input:focus,
 .edit-form .form-group textarea:focus,
-.edit-form .form-group select:focus {
+.edit-form .form-group select:focus,
+input[type="date"]:focus,
+input[type="time"]:focus {
   border-color: var(--color2);
 }
 
@@ -468,8 +610,8 @@ button[type="button"]:hover,
   color: white;
   border-radius: 25px;
   border: none;
-  padding: 12px 25px;
-  font-size: 16px;
+  padding: 12px 15px;
+  font-size: 12px;
   cursor: pointer;
   transition: background-color 300ms ease;
 }
@@ -479,78 +621,41 @@ button[type="button"]:hover,
 }
 
 /* Estilos para los Campos de Fecha y Hora */
-input[type="date"],
-input[type="time"] {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  background-color: #f9fafc;
-  font-size: 14px;
-  transition: border-color 300ms ease;
+
+.drop-zone {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease-in-out;
 }
 
-input[type="date"]:focus,
-input[type="time"]:focus {
-  border-color: var(--color2);
+.drop-zone:hover {
+  border-color: #007bff;
+}
+
+.drop-area {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #666;
 }
 
 .preview-container {
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  align-content: center;
+  margin-top: 10px;
 }
 
 .preview-image {
-  width: 100px; /* Ajusta el tamaño según necesites */
+  max-width: 100%;
   height: auto;
   border-radius: 8px;
-  border: 2px solid #ccc;
-  object-fit: cover;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo para la Sección Jumbo (Artículo) */
-.jumbo {
-  position: relative;
-  background-color: #ffffffdf;
-  padding: 30px;
-  margin: 0 auto;
-  margin-top: 63px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  text-align: center;
-}
-
-.jumbo h1,
-.portada h1 {
-  font-size: 50px;
-
-  color: var(--color1);
-  font-weight: lighter;
-  margin: 15px 0;
-}
-
-.jumbo h3,
-.portada h3 {
-  font-size: 18px;
-  color: var(--color5);
-  font-weight: 400;
-  margin: 5px 0;
-}
-
-.lateral .jumbo {
-  width: 80%;
-}
-
-.lateral  h2, 
+.lateral h2,
 .manifiesto h2,
- .crear-tittle, 
- .about .texto-left h2 {
+.crear-tittle,
+.about .texto-left h2,
+.crear-h2 {
   font-size: 25px;
   margin: 0px auto;
   margin-top: 60px;
@@ -562,27 +667,27 @@ input[type="time"]:focus {
 .ultimos-articulos ul {
   list-style: none;
   text-align: left;
-  font-family: "Zen Loop", serif;
   margin-bottom: 15px;
 }
 
 .ultimos-articulos ul li {
-  border-bottom: 1px solid #ccc; /* Cambia #ccc por el color que prefieras */
-  padding-bottom: 5px; /* Opcional, para darle algo de espacio entre el texto y la línea */
-  margin-bottom: 10px; /* Opcional, para darle algo de espacio entre los items */
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  transition: all 300ms ease;
 }
 
-.ultimos-articulos a {
-  font-family: "Zen Loop", serif;
-  margin-bottom: 15px;
+.ultimos-articulos ul li:hover {
+  border-bottom: 1px solid var(--color6);
 }
 
 .ultimos-articulos h2 {
   margin-top: 100px;
 }
+
 .ultimos-articulos h4 {
   font-size: 17px;
-  font-family: "Reenie Beanie", serif;
+  font-family: var(--fuente-handmade);
   color: var(--color6);
 }
 
@@ -596,8 +701,8 @@ input[type="time"]:focus {
   margin-bottom: 25px;
 }
 .articulo-mascara img {
-  width: 50%;
-  height: auto;
+  width: 100%;
+  height: 700px;
   object-fit: contain;
   border-radius: 5px;
 }
@@ -638,7 +743,6 @@ input[type="time"]:focus {
   object-position: center bottom;
 }
 
-
 .portada blockquote {
   position: absolute;
   top: 8%;
@@ -652,13 +756,11 @@ input[type="time"]:focus {
   font-weight: 200;
 }
 
-
-
 .manifiesto .button {
   background-color: var(--color2);
   color: white;
-  padding: 12px 25px;
-  font-size: 16px;
+  padding: 12px 15px;
+  font-size: 12px;
   border-radius: 25px;
   border: none;
   cursor: pointer;
@@ -670,7 +772,7 @@ input[type="time"]:focus {
 }
 
 .manifiesto .button:hover {
-  background-color: #d1a1e2; /* Cambio de color al pasar el cursor */
+  background-color: var(--color1);
 }
 /*ESTILOS GENERALES*/
 
@@ -702,7 +804,7 @@ body {
 }
 
 .manifiesto li {
-  font-family: "Reenie Beanie", serif;
+  font-family: var(--fuente-handmade);
   font-size: 25px;
   color: #3a3a3a;
 }
@@ -731,9 +833,9 @@ body {
   align-items: center;
 }
 
-.foto-about .foto{
+.foto-about .foto {
   width: 100%;
-  height:100%;
+  height: 100%;
   object-fit: cover;
   opacity: 1;
 }
@@ -744,24 +846,19 @@ body {
 }
 
 .texto-left p {
-  font-family: "Zen Loop", serif;
-  font-size: 25px;
+  font-family: var(--fuente-secundaria);
+  font-size: 20px;
+  margin-top: 50px;
   text-align: justify;
   line-height: 1.5;
   color: #131313;
 }
 
-.texto-left h2 {
-  font-size: 24px;
-  margin-top: 20px;
-  color: #333;
-}
-
 .botones .button {
   background-color: var(--color3);
   color: white;
-  padding: 12px 20px;
-  font-size: 16px;
+  padding: 12px 15px;
+  font-size: 12px;
   border-radius: 25px;
   border: none;
   cursor: pointer;
@@ -794,7 +891,7 @@ body {
 
 .footer .title {
   font-size: 50px;
-  font-family: "Reenie Beanie", serif;
+  font-family: var(--fuente-handmade);
 }
 
 .footer h5 {
@@ -812,8 +909,6 @@ body {
   margin-bottom: 30px;
 }
 
-
-
 .footer a {
   text-decoration: underline;
   font-weight: 500;
@@ -821,9 +916,9 @@ body {
     font-weight 300ms ease-in-out;
 }
 
-.copy a{
+.copy a {
   text-decoration: none;
-  }
+}
 
 .footer a:hover {
   transform: scale(1.1);
@@ -860,20 +955,19 @@ body {
     display: none;
     width: 100%;
     text-align: center;
-
   }
 
   .nav ul.active {
     display: block;
     transform: translateY(0);
     margin-left: -20px;
-}
+  }
 
-.toggle-btn {
-  margin: 0 auto;
-  display: block;
-  position: relative;
-}
+  .toggle-btn {
+    margin: 0 auto;
+    display: block;
+    position: relative;
+  }
 
   .content {
     width: 100%;
@@ -884,11 +978,10 @@ body {
   .manifiesto ul {
     width: 80%; /* Se ajusta mejor al tamaño de la pantalla */
     padding: 0;
-    font-size: 25px;
   }
 
   .manifiesto li {
-    font-size: 18px;
+    font-size: 25px;
     line-height: 1.4;
   }
 
@@ -911,14 +1004,13 @@ body {
     height: auto;
   }
 
-  /* Ajustes para la portada */
+  .ultimos-articulos ul {
+    padding-left: 0px;
+    text-align: center;
+  }
 
-
-  .portada .button {
-    left: 50%;
-    transform: translateX(32%);
-    font-size: 12px;
-    padding: 8px 10px;
+  .ql-container {
+    font-size: 14px;
   }
 }
 
@@ -926,8 +1018,7 @@ body {
   .portada blockquote {
     width: 80%;
     font-size: 28px;
-}
-
+  }
 
   .header h1 {
     font-size: 40px;
@@ -975,15 +1066,10 @@ body {
     margin-top: 60px;
     margin-bottom: 20px;
   }
-  .ultimos-articulos ul li {
-    font-size: 12px;
-    line-height: 0.5;
-  }
 
-  .ultimos-articulos h4 {
+  .ultimos-articulos ul li {
     font-size: 15px;
-    font-family: "Reenie Beanie", serif;
-    color: var(--color6);
+    line-height: 1;
   }
 
   /* articulo detalle  */
@@ -995,25 +1081,11 @@ body {
     color: var(--color1);
     margin: 0;
   }
-  .jumbo h4,
-  .jumbo span {
-    font-size: 20px;
-    line-height: 0.2;
-  }
-
-  .parrafo {
-    margin: 0 auto;
-    margin-top: 30px;
-    font-size: 20px;
-    text-align: justify;
-    font-weight: lighter;
-    color: var(--color1);
-  }
 
   form {
     padding: 14px;
     margin: 50px auto;
-    width: 90%;
+    width: 95%;
   }
 
   .footer .title {

@@ -2,13 +2,16 @@ import { useState } from "react";
 import { useForm } from "../../hooks/useForm";
 import Global from "../../helpers/Global";
 import { Peticion } from "../../helpers/Peticion";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Importa los estilos de Quill
 
 const Crear = () => {
   const { formulario, cambiado } = useForm({});
   const [resultado, setResultado] = useState("no_enviado");
-  const [camposContenido, setCamposContenido] = useState([]);
   const [imagenPreview, setImagenPreview] = useState(null);
+  const [imagenArchivo, setImagenArchivo] = useState(null);
   const [fecha, setFecha] = useState(new Date().toISOString().split("T")[0]);
+  const [contenido, setContenido] = useState("");  // Guardar el contenido con formato
 
   const guardarArticulo = async (e) => {
     e.preventDefault();
@@ -16,13 +19,9 @@ const Crear = () => {
     let nuevoArticulo = {
       ...formulario,
       fecha,
+      contenido,  // El contenido con formato se guarda aquí
     };
 
-    camposContenido.forEach((contenido, index) => {
-      nuevoArticulo[`contenido${index + 1}`] = contenido;
-    });
-
-    // 1. Enviar artículo al backend
     const { datos, error } = await Peticion(Global.url + "crear", "POST", nuevoArticulo);
 
     if (error) {
@@ -34,11 +33,9 @@ const Crear = () => {
     if (datos?.status === "success") {
       setResultado("guardado");
 
-      // 2. Subir imagen a Cloudinary solo si se ha seleccionado una imagen
-      const fileInput = document.querySelector("#file");
-      if (fileInput.files.length > 0) {
+      if (imagenArchivo) {
         const formData = new FormData();
-        formData.append("file0", fileInput.files[0]);
+        formData.append("file0", imagenArchivo);
 
         const subida = await Peticion(Global.url + "subir-imagen/" + datos.articulo._id, "POST", formData, true);
 
@@ -53,28 +50,23 @@ const Crear = () => {
     }
   };
 
-  const agregarCampoContenido = () => {
-    if (camposContenido.length < 6) {
-      setCamposContenido([...camposContenido, ""]);
-    } else {
-      alert("Has alcanzado el máximo de 6 párrafos permitidos.");
-    }
-  };
-
-  const manejarContenido = (index, value) => {
-    const nuevosCampos = [...camposContenido];
-    nuevosCampos[index] = value;
-    setCamposContenido(nuevosCampos);
-  };
-
-  const ajustarAltura = (e) => {
-    e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + "px";
-  };
-
   const manejarImagen = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setImagenArchivo(file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImagenPreview(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const manejarDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      setImagenArchivo(file);
       const reader = new FileReader();
       reader.onload = (event) => {
         setImagenPreview(event.target.result);
@@ -85,7 +77,7 @@ const Crear = () => {
 
   return (
     <>
-      <h1>Crear Artículo</h1>
+      <h2 className="crear-h2">Crear Artículo</h2>
       <span className="form-span">Los campos con * son obligatorios</span>
       <strong>{resultado === "guardado" ? "Artículo guardado con éxito!!" : ""}</strong>
       <strong>{resultado === "error" ? "Los datos proporcionados son incorrectos!!" : ""}</strong>
@@ -106,43 +98,40 @@ const Crear = () => {
           <input
             type="date"
             name="fecha"
-            value={fecha ? fecha.split("T")[0] : ""}  // Tomar solo la parte 'YYYY-MM-DD'
+            value={fecha}
             onChange={(e) => setFecha(e.target.value)}
           />
         </div>
 
-
         <div className="form-group">
           <label htmlFor="contenido">Contenido <span>*</span></label>
-          <textarea
-            name="contenido"
-            onChange={cambiado}
-            onInput={ajustarAltura}
-            placeholder="Comienza a escribir tu artículo, no te preocupes por el espacio, puedes agregar hasta 6 parrafos más."
-            style={{ overflow: "hidden", resize: "none" }}
-          />
+          <ReactQuill
+  value={contenido}
+  onChange={setContenido}  // Aquí se actualiza el contenido con formato
+  theme="snow"
+  modules={{
+    toolbar: [
+      [{ size: ['small', 'medium', 'large'] }],
+      ['bold', 'italic', 'underline'],
+      ['link'],
+      [{ color: [] }, { background: [] }],
+      ['blockquote'],
+    ],
+  }}
+/>
+
         </div>
 
-        {camposContenido.map((contenido, index) => (
-          <div className="form-group" key={index}>
-            <label htmlFor={`contenido${index + 1}`}>Contenido {index + 1}</label>
-            <textarea
-              value={contenido}
-              onChange={(e) => manejarContenido(index, e.target.value)}
-              onInput={ajustarAltura}
-              placeholder={`Párrafo ${index + 1}`}
-              style={{ overflow: "hidden", resize: "none" }}
-            />
-          </div>
-        ))}
-
-        <button type="button" onClick={agregarCampoContenido} className="agregar-mas" disabled={camposContenido.length >= 6}>
-          {camposContenido.length < 6 ? "Añadir otro párrafo" : "Límite alcanzado"}
-        </button>
-
-        <div className="form-group">
-          <label htmlFor="file0">Imagen <span></span></label>
+        <div
+          className="form-group drop-zone"
+          onDrop={manejarDrop}
+          onDragOver={(e) => e.preventDefault()}
+        >
+          <label htmlFor="file0">Imagen</label>
           <input type="file" name="file0" id="file" onChange={manejarImagen} />
+          <div className="drop-area">
+            <span>Arrastra y suelta una imagen aquí o haz clic para seleccionar</span>
+          </div>
           {imagenPreview && (
             <div className="preview-container">
               <img src={imagenPreview} alt="Vista previa" className="preview-image" />

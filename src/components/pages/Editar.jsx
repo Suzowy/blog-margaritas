@@ -1,71 +1,75 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { useForm } from "../../hooks/useForm";
-import { useParams } from "react-router-dom";
-import Global from "../../helpers/Global";
+import  { useState, useEffect, useCallback } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Importa los estilos de Quill
+import { useParams, useNavigate } from "react-router-dom";
 import { Peticion } from "../../helpers/Peticion";
+import Global from "../../helpers/Global";
 
 const Editar = () => {
-  const { formulario, enviado, cambiado } = useForm({});
   const [resultado, setResultado] = useState("no_enviado");
-  const [cargando, setCargando] = useState(true);
-  const [articulo, setArticulo] = useState({});
+  const [imagenPreview, setImagenPreview] = useState(null);
+  const [imagenArchivo, setImagenArchivo] = useState(null);
   const [fecha, setFecha] = useState("");
-  const [camposContenido, setCamposContenido] = useState([]);
+  const [contenido, setContenido] = useState("");  // Guardar el contenido con formato
+  const [articulo, setArticulo] = useState({
+    titulo: '',
+    autor: '',
+    fecha: '',
+    contenido: ''
+  });
   const params = useParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    conseguirArticulo();
-  }, []);
-
-  const conseguirArticulo = async () => {
+  // Función para cargar los datos del artículo
+  const conseguirArticulo = useCallback(async () => {
     const { datos } = await Peticion(Global.url + "articulo/" + params.id, "GET");
 
     if (datos.status === "success") {
-      setArticulo(datos.articulo);
+      setArticulo({
+        titulo: datos.articulo.titulo,
+        autor: datos.articulo.autor,
+        fecha: datos.articulo.fecha || new Date().toISOString().split("T")[0],
+        contenido: datos.articulo.contenido || ""
+      });
       setFecha(datos.articulo.fecha || new Date().toISOString().split("T")[0]);
-
-      // Cargar campos dinámicos si existen
-      const nuevosCampos = [];
-      for (let i = 1; i <= 6; i++) {
-        if (datos.articulo[`contenido${i}`]) {
-          nuevosCampos.push(datos.articulo[`contenido${i}`]);
-        }
-      }
-      setCamposContenido(nuevosCampos);
+      setContenido(datos.articulo.contenido || ""); // Cargar contenido del artículo
     }
+  }, [params.id]);
 
-    setCargando(false);
-  };
+  useEffect(() => {
+    conseguirArticulo();
+  }, [conseguirArticulo]);
 
+  // Función para actualizar los datos del artículo
   const editarArticulo = async (e) => {
     e.preventDefault();
 
     let nuevoArticulo = {
-      ...formulario,
+      ...articulo,
       fecha,
+      contenido,  // El contenido con formato se guarda aquí
     };
 
-    // Agregar los párrafos dinámicos
-    camposContenido.forEach((contenido, index) => {
-      nuevoArticulo[`contenido${index + 1}`] = contenido;
-    });
+    const { datos, error } = await Peticion(Global.url + "articulo/" + params.id, "PUT", nuevoArticulo);
 
-    const { datos } = await Peticion(Global.url + "articulo/" + params.id, "PUT", nuevoArticulo);
+    if (error) {
+      console.error("Error en la petición:", error);
+      setResultado("error");
+      return;
+    }
 
-    if (datos.status === "success") {
+    if (datos?.status === "success") {
       setResultado("guardado");
 
-      // Subir imagen
-      const fileInput = document.querySelector("#file");
-      if (fileInput.files.length > 0) {
+      if (imagenArchivo) {
         const formData = new FormData();
-        formData.append("file0", fileInput.files[0]);
+        formData.append("file0", imagenArchivo);
 
         const subida = await Peticion(Global.url + "subir-imagen/" + datos.articulo._id, "POST", formData, true);
 
         if (subida.status === "success") {
           setResultado("guardado");
+          navigate("/articulos"); // Redirige después de guardar
         } else {
           setResultado("error");
         }
@@ -75,99 +79,121 @@ const Editar = () => {
     }
   };
 
-  const manejarContenido = (index, value) => {
-    const nuevosCampos = [...camposContenido];
-    nuevosCampos[index] = value;
-    setCamposContenido(nuevosCampos);
-  };
-
-  const agregarCampoContenido = () => {
-    if (camposContenido.length < 6) {
-      setCamposContenido([...camposContenido, ""]);
-    } else {
-      alert("Has alcanzado el máximo de 6 párrafos permitidos.");
+  // Manejo de la imagen
+  const manejarImagen = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagenArchivo(file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImagenPreview(event.target.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const ajustarAltura = (e) => {
-    e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + "px";
+  const manejarDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      setImagenArchivo(file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImagenPreview(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Manejar el cambio en los campos
+  const manejarCambio = (e) => {
+    const { name, value } = e.target;
+    setArticulo((prevArticulo) => ({
+      ...prevArticulo,
+      [name]: value,
+    }));
   };
 
   return (
-    <div className="jumbo">
-      <h1>Editar Artículo</h1>
-      <p>Formulario para editar: {articulo.titulo}</p>
-
+    <>
+      <h2 className="crear-h2">Editar Artículo</h2>
+      <span className="form-span">Los campos con * son obligatorios</span>
       <strong>{resultado === "guardado" ? "Artículo guardado con éxito!!" : ""}</strong>
       <strong>{resultado === "error" ? "Los datos proporcionados son incorrectos!!" : ""}</strong>
 
       <form className="formulario" onSubmit={editarArticulo}>
         <div className="form-group">
-          <label htmlFor="titulo">Título *</label>
-          <input type="text" name="titulo" onChange={cambiado} defaultValue={articulo.titulo} required />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="autor">Autor *</label>
-          <input type="text" name="autor" onChange={cambiado} defaultValue={articulo.autor} required />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="fecha">Fecha *</label>
-          <input type="date" name="fecha" value={fecha} onChange={(e) => setFecha(e.target.value)} />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="contenido">Contenido *</label>
-          <textarea
-            name="contenido"
-            onChange={cambiado}
-            onInput={ajustarAltura}
-            defaultValue={articulo.contenido}
-            style={{ overflow: "hidden", resize: "none" }}
+          <label htmlFor="titulo">Título <span>*</span></label>
+          <input
+            type="text"
+            name="titulo"
+            onChange={manejarCambio}
+            value={articulo.titulo}
+            required
+            placeholder="Escribe el título de tu artículo."
           />
         </div>
 
-        {/* Campos dinámicos de contenido */}
-        {camposContenido.map((contenido, index) => (
-          <div className="form-group" key={index}>
-            <label htmlFor={`contenido${index + 1}`}>Contenido {index + 1}</label>
-            <textarea
-              value={contenido}
-              onChange={(e) => manejarContenido(index, e.target.value)}
-              onInput={ajustarAltura}
-              name={`contenido${index + 1}`}
-              placeholder={`Agrega el contenido del párrafo ${index + 1}`}
-              style={{ overflow: "hidden", resize: "none" }}
-            />
-          </div>
-        ))}
-
-        <button type="button" onClick={agregarCampoContenido} className="agregar-mas" disabled={camposContenido.length >= 6}>
-          {camposContenido.length < 6 ? "Añadir otro párrafo" : "Límite alcanzado"}
-        </button>
+        <div className="form-group">
+          <label htmlFor="autor">Autor <span>*</span></label>
+          <input
+            type="text"
+            name="autor"
+            onChange={manejarCambio}
+            value={articulo.autor}
+            required
+            placeholder="Nombre del autor."
+          />
+        </div>
 
         <div className="form-group">
-          <label htmlFor="file0">Imagen *</label>
-          <div className="mascara">
-            {articulo.imagen !== "default.png" && (
-              <img src={Global.url + "imagen/" + articulo.imagen} alt={`Imagen de ${articulo.titulo}`} />
-            )}
+          <label htmlFor="fecha">Fecha <span>*</span></label>
+          <input
+            type="date"
+            name="fecha"
+            value={fecha}
+            onChange={(e) => setFecha(e.target.value)}
+          />
+        </div>
 
-            {articulo.imagen === "default.png" && (
-              <img
-                src="https://margaritasamedianoche.files.wordpress.com/2023/05/whatsapp-image-2022-11-27-at-12.32.05-1.jpeg"
-                alt={`Imagen de ${articulo.titulo}`}
-              />
-            )}
+        <div className="form-group">
+          <label htmlFor="contenido">Contenido <span>*</span></label>
+                  <ReactQuill
+            value={contenido}
+            onChange={setContenido}  // Aquí se actualiza el contenido con formato
+            theme="snow"
+            modules={{
+              toolbar: [
+                [{ size: ['small', 'medium', 'large', 'huge'] }],
+                ['bold', 'italic', 'underline'],
+                ['link'],
+                [{ color: [] }, { background: [] }],
+                ['blockquote'],
+              ],
+            }}
+          />
+        </div>
+
+        <div
+          className="form-group drop-zone"
+          onDrop={manejarDrop}
+          onDragOver={(e) => e.preventDefault()}
+        >
+          <label htmlFor="file0">Imagen</label>
+          <input type="file" name="file0" id="file" onChange={manejarImagen} />
+          <div className="drop-area">
+            <span>Arrastra y suelta una imagen aquí o haz clic para seleccionar</span>
           </div>
-          <input type="file" name="file0" id="file" />
+          {imagenPreview && (
+            <div className="preview-container">
+              <img src={imagenPreview} alt="Vista previa" className="preview-image" />
+            </div>
+          )}
         </div>
 
         <input type="submit" value="Guardar" className="btn btn-success" />
       </form>
-    </div>
+    </>
   );
 };
 

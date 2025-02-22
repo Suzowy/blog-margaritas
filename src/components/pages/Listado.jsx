@@ -13,7 +13,6 @@ const formatFecha = (fecha) => {
     }).format(date);
 };
 
-
 const Listado = ({ articulos, setArticulos }) => {
 
     const eliminar = async (id) => {
@@ -22,9 +21,7 @@ const Listado = ({ articulos, setArticulos }) => {
             let articulosActualizados = articulos.filter(articulo => articulo._id !== id);
             setArticulos(articulosActualizados)
         }
-
     }
-
 
     return (
         articulos.map((articulo) => {
@@ -43,7 +40,7 @@ const Listado = ({ articulos, setArticulos }) => {
 
                     <div className="datos">
                         <h3 className="title">{articulo.titulo}</h3>
-                        <p className="description">{articulo.contenido}</p>
+                        <p className="description" dangerouslySetInnerHTML={{ __html: articulo.contenido }}></p>  {/* Renderizando contenido HTML */}
                         <p className="more">
                             <Link to={"/articulo/" + articulo._id}>Leer más...</Link>
                         </p>
@@ -57,8 +54,6 @@ const Listado = ({ articulos, setArticulos }) => {
             );
         })
     );
-
-
 }
 
-export default Listado
+export default Listado;

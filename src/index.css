@@ -13,10 +13,9 @@
 
 .poiret-one-regular {
   font-family: var(--fuente-secundaria);
-  font-weight:400;
+  font-weight: 400;
   font-style: normal;
 }
-
 
 .reenie-beanie {
   font-family: var(--fuente-handmade);
@@ -197,7 +196,7 @@ h6 {
   overflow: hidden;
   background-color: #ffffff42;
   box-shadow: 0 4px 8px rgba(48, 48, 48, 0.1);
- 
+
   flex-direction: row;
   flex-wrap: nowrap;
   /* align-content: center; */
@@ -206,10 +205,10 @@ h6 {
   transition: transform 300ms ease-in-out;
 }
 
- .articulo-item:hover{
+.articulo-item:hover {
   transform: translateY(-2px);
   box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
-} 
+}
 
 .articulo-item .mascara {
   width: 50%;
@@ -267,10 +266,11 @@ h6 {
   overflow: hidden;
 }
 
-.articulo-item .datos .description p, span{
+.articulo-item .datos .description p,
+span {
   font-family: var(--fuente-secundaria) !important;
   font-size: 17px !important;
-  color: var(--color1)!important;
+  color: var(--color1) !important;
 }
 
 .articulo-item .edit,
@@ -441,19 +441,27 @@ textarea::placeholder {
 .jumbo blockquote {
   font-family: var(--fuente-handmade) !important;
   color: var(--color1);
+  text-align: center;
   font-size: 25px;
 }
 
 /* Estilos para enlaces */
 .ql-editor a,
-.jumbo a,
-.jumbo em {
+.jumbo a {
   color: var(--color6);
   font-family: var(--fuente-secundaria);
   font-style: oblique;
   text-decoration: 1px solid #3e7b6ee2 underline;
   font-weight: 600;
   transition: all 100ms ease-in;
+}
+
+/*estilos resaltado obliqua*/
+.jumbo em {
+  color: var(--color6);
+  font-family: var(--fuente-secundaria);
+  font-style: oblique;
+  font-weight: 600;
 }
 
 .jumbo a:hover,
@@ -1051,7 +1059,7 @@ body {
   }
   .articulo-item .mascara img {
     width: 65%;
-    height:200px;
+    height: 200px;
     margin: 0 auto;
   }
   .mascara p {
@@ -1069,19 +1077,18 @@ body {
 
   .ultimos-articulos ul {
     margin-bottom: 100px;
-}
+  }
 
   .ultimos-articulos ul li {
     font-size: 15px;
-    line-height: 0.2;
+    line-height: 0.9;
   }
 
   /* articulo detalle  */
   .jumbo {
     padding: 0px;
     width: 95%;
-}
-
+  }
 
   .jumbo .articulo-mascara img {
     width: 90%;
@@ -1098,13 +1105,20 @@ body {
     padding: 20px;
     margin-top: 15px;
     margin-bottom: 10px;
-}
+  }
 
-.search form {
-  padding: 14px;
-  margin: 40px  10px 90px 10px;
-  width: 95%;
-}
+  .search form {
+    padding: 14px;
+    margin: 40px 10px 90px 10px;
+    width: 95%;
+  }
+
+  .ver-mas,
+  .ver-menos {
+    margin-top: 5px;
+    margin-bottom: 60px;
+  }
+
   .footer .title {
     font-size: 35px;
     color: var(--color1);

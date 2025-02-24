@@ -1051,7 +1051,7 @@ body {
   }
   .articulo-item .mascara img {
     width: 65%;
-    height: 200px;
+    height:200px;
     margin: 0 auto;
   }
   .mascara p {
@@ -1085,7 +1085,8 @@ body {
 
   .jumbo .articulo-mascara img {
     width: 90%;
-    height: 450px;
+    height: 100%;
+    padding-top: 20px;
   }
   .jumbo h1 {
     font-size: 25px;

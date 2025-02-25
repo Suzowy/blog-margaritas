@@ -186,10 +186,27 @@ color: var(--color6) !important;
   margin-top: 50px;
   margin-bottom: 10px;
 }
+
+/* Contenedor de las imágenes dentro del párrafo */
 .parrafo p {
   margin: 0 auto;
   line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+  justify-content: center;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
 }
+
+/* Estilo de las imágenes */
+.parrafo p img {
+  width: auto; /* Ajusta el tamaño de las imágenes */
+  max-height: 400px; /* Mantiene la proporción */
+  margin: 50px 20px 50px 10px; /* Espaciado entre las imágenes */
+}
+
 
 .articulo-item {
   display: flex;

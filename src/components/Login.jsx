@@ -47,7 +47,9 @@ const Login = () => {
                         value={password}
                         required
                         placeholder="Escribe tu contraseña"
+                        autoComplete="current-password"
                     />
+
                 </div>
 
                 <button type="submit" className="form-button">Iniciar sesión</button>

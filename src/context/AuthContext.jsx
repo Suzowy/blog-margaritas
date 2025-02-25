@@ -23,9 +23,9 @@ export const AuthProvider = ({ children }) => {
 
         if (username === adminUsername && password === adminPassword) {
             localStorage.setItem("auth", "true");
-            localStorage.setItem("username", username); // Guardamos el nombre de usuario en localStorage
+            localStorage.setItem("username", username);
             setIsAuthenticated(true);
-            setUsername(username); // Seteamos el username en el estado
+            setUsername(username);
             return true;
         }
         return false;
@@ -33,9 +33,9 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem("auth");
-        localStorage.removeItem("username"); // Limpiamos el nombre de usuario en el logout
+        localStorage.removeItem("username");
         setIsAuthenticated(false);
-        setUsername(""); // Limpiamos el estado
+        setUsername("");
     };
 
     return (

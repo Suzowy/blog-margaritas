@@ -79,7 +79,7 @@ h6 {
 /* Cabecera */
 .header {
   grid-area: header;
-  background: linear-gradient(90deg, var(--color2) 10%, var(--color4) 100%);
+  background: linear-gradient(90deg, var(--color5) 10%, var(--color3) 100%);
   text-align: left;
   display: flex;
   justify-content: center;
@@ -98,7 +98,7 @@ h6 {
 /* Barra de Navegación */
 .nav {
   grid-area: nav;
-  background: linear-gradient(90deg, var(--color2) 10%, var(--color4) 100%);
+  background: linear-gradient(90deg, var(--color5) 10%, var(--color3) 100%);
 }
 /* Ocultar la barra de navegación en pantallas pequeñas */
 .nav ul {
@@ -131,6 +131,13 @@ h6 {
   transition: transform 300ms ease-in-out;
 }
 
+.welcome{
+font-family: var(--fuente-handmade)!important;
+font-size: 22px !important;
+color: var(--color6) !important;
+
+}
+
 /* Button toggle */
 .toggle-btn {
   display: none;
@@ -154,7 +161,6 @@ h6 {
   display: flex;
   min-height: 100vh;
   background: var(--color3);
-
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: center;
@@ -303,6 +309,10 @@ form {
   max-width: 700px;
 }
 
+.formulario-login{
+  width: 60%;
+}
+
 /* Estilos de Inputs y Textareas */
 input[type="text"],
 input[type="email"],
@@ -329,6 +339,8 @@ textarea:focus,
 select:focus {
   border-color: var(--color2);
 }
+
+
 
 /* Estilos de Etiquetas */
 label {
@@ -505,7 +517,7 @@ button[type="button"],
   color: white;
   width: 100px;
   padding: 12px 15px;
-  font-size: 12px;
+  font-size: 11px;
   border-radius: 25px;
   border: none;
   cursor: pointer;
@@ -632,7 +644,7 @@ input[type="time"]:focus {
   border-radius: 25px;
   border: none;
   padding: 12px 15px;
-  font-size: 12px;
+  font-size: 11px;
   cursor: pointer;
   transition: background-color 300ms ease;
 }
@@ -712,6 +724,11 @@ input[type="time"]:focus {
   color: var(--color6);
 }
 
+.ver-mas, .ver-menos {
+  margin-top: 10px;
+  margin-bottom: 60px;
+}
+
 /* Estilo para la imagen del artículo */
 .articulo-mascara {
   width: 100%;
@@ -759,8 +776,7 @@ input[type="time"]:focus {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.7;
-  filter: drop-shadow(-15px -5px 14px grey);
+  opacity: 0.8;
   object-position: center bottom;
 }
 
@@ -815,7 +831,7 @@ body {
 }
 
 .manifiesto ul {
-  width: 70%;
+  width: 60%;
   height: auto;
   list-style: decimal;
   text-align: left;
@@ -826,7 +842,7 @@ body {
 
 .manifiesto li {
   font-family: var(--fuente-handmade);
-  font-size: 25px;
+  font-size: 27px;
   color: #3a3a3a;
 }
 
@@ -875,7 +891,7 @@ body {
   color: #131313;
 }
 
-.botones .button {
+.botones .button  {
   background-color: var(--color3);
   color: white;
   padding: 12px 15px;
@@ -886,12 +902,23 @@ body {
   transition: background-color 300ms ease;
 }
 
+.cerrar-sesion{
+  background-color: var(--color4);
+  color: white;
+  padding: 12px 12px;
+  font-size: 10px;
+  border-radius:50px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 300ms ease;
+}
+
 .botones .button a {
   color: white;
   text-decoration: none;
 }
 
-.botones .button:hover {
+.botones .button:hover, .cerrar-sesion:hover {
   background-color: var(--color5);
 }
 .lateral {
@@ -902,7 +929,7 @@ body {
 /* Pie de Página */
 .footer {
   grid-area: footer;
-  background: linear-gradient(90deg, var(--color2) 10%, var(--color4) 100%);
+  background: linear-gradient(90deg, var(--color5) 10%, var(--color3) 100%);
   color: #ffffff;
   border-top: 1px solid #ddd;
   text-align: center;
@@ -1113,6 +1140,10 @@ body {
     color: var(--color1);
     margin: 0;
   }
+  .formulario-login{
+    width: 90%;
+  }
+
 
   .parrafo {
     padding: 20px;

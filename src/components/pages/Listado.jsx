@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext"; // Asegúrate de importar el contexto
 import Global from "../../helpers/Global";
 import { Peticion } from "../../helpers/Peticion";
 
@@ -14,19 +16,33 @@ const formatFecha = (fecha) => {
 };
 
 const Listado = ({ articulos, setArticulos }) => {
+    const { isAuthenticated } = useContext(AuthContext); // Obtener el estado de autenticación
 
     const eliminar = async (id) => {
         let { datos } = await Peticion(Global.url + "articulo/" + id, "DELETE");
         if (datos.status === "success") {
             let articulosActualizados = articulos.filter(articulo => articulo._id !== id);
-            setArticulos(articulosActualizados)
+            setArticulos(articulosActualizados);
         }
     }
+
+    const manejarBorrar = (id) => {
+        if (isAuthenticated) {
+            // Confirmación antes de borrar
+            const confirmacion = window.confirm("¿Estás seguro de borrar este artículo permanentemente?");
+            if (confirmacion) {
+                eliminar(id); // Si el usuario confirma, proceder con la eliminación
+            }
+        } else {
+            alert("Necesitas iniciar sesión para eliminar un artículo.");
+            // O redirigir al login: <Navigate to="/login" />
+        }
+    };
 
     return (
         articulos.map((articulo) => {
             return (
-                <article key={articulo._id} className="articulo-item">  {/* Agrega key aquí */}
+                <article key={articulo._id} className="articulo-item">
                     <div className="mascara">
                         <img
                             src={articulo.imagen && articulo.imagen !== "default.png"
@@ -40,15 +56,20 @@ const Listado = ({ articulos, setArticulos }) => {
 
                     <div className="datos">
                         <h3 className="title">{articulo.titulo}</h3>
-                        <p className="description" dangerouslySetInnerHTML={{ __html: articulo.contenido }}></p>  {/* Renderizando contenido HTML */}
+                        <p className="description" dangerouslySetInnerHTML={{ __html: articulo.contenido }}></p>
                         <p className="more">
                             <Link to={"/articulo/" + articulo._id}>Leer más...</Link>
                         </p>
 
-                        <Link to={"/editar/" + articulo._id} className="edit">Editar</Link>
-                        <button className="delete" onClick={() => eliminar(articulo._id)}>
-                            Borrar
-                        </button>
+                        {/* Mostrar los botones solo si está autenticado */}
+                        {isAuthenticated && (
+                            <>
+                                <Link to={"/editar/" + articulo._id} className="edit">Editar</Link>
+                                <button className="delete" onClick={() => manejarBorrar(articulo._id)}>
+                                    Borrar
+                                </button>
+                            </>
+                        )}
                     </div>
                 </article>
             );
@@ -57,3 +78,4 @@ const Listado = ({ articulos, setArticulos }) => {
 }
 
 export default Listado;
+

@@ -119,7 +119,7 @@ const Crear = () => {
       ['link'],
       [
         { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1'] }, // Colores personalizados
-        { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1'] } // Fondos personalizados
+        { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] } // Fondos personalizados
       ],
       ['blockquote'],
     ],

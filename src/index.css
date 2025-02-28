@@ -771,7 +771,7 @@ input[type="time"]:focus {
 
 .articulo-item img {
   width: 100% !important; /* La imagen se ajustará al ancho del contenedor */
-  height: auto !important; /* Mantendrá la proporción */
+  max-height:300px !important; /* Mantendrá la proporción */
   max-width: 100% !important;
   aspect-ratio: auto !important; /* Elimina la relación de aspecto fija */
   display: block;

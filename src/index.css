@@ -746,34 +746,53 @@ input[type="time"]:focus {
   border-radius: 5px;
 }
 
-
-/*imagenes dentro del contenido*/
-img {
-  width: 300px;
-  aspect-ratio: auto 768 / 1024;
-  height: auto;
+.parrafo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  color: rgb(2, 62, 71);
+  text-align: justify;
+  max-width: 800px;
+  margin: auto;
 }
 
+.parrafo p {
+  display: inline;
+}
 
-.parrafo {
+.imagenes {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 20px;
+  gap: 10px;
+  width: 100%;
 }
+
+.articulo-item img {
+  width: 100% !important; /* La imagen se ajustará al ancho del contenedor */
+  height: auto !important; /* Mantendrá la proporción */
+  max-width: 100% !important;
+  aspect-ratio: auto !important; /* Elimina la relación de aspecto fija */
+  display: block;
+}
+
+
 
 .parrafo img {
-  display: inline-block;
+  max-width: calc(50% - 10px);
   height: auto;
-  margin: 20px 20px 20px 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-/* Si hay solo una imagen, hacer que ocupe más espacio */
-.parrafo:has(img:only-child) img {
-  max-width:100%;
+.parrafo img:only-child {
+  max-width: 100%;
+  max-height: 500px;
+  overflow: hidden;
 }
-
 
 
 
@@ -1087,12 +1106,6 @@ body {
     height: auto;
   }
 
-  /* Si hay solo una imagen, hacer que ocupe más espacio */
-  img {
-    width: 150px;
-  }
-
-
 
   .ultimos-articulos ul {
     padding-left: 0px;
@@ -1152,6 +1165,22 @@ body {
     font-size: 25px;
   }
 
+  .parrafo img {
+    max-width: calc(50% - 10px);
+    height: auto;
+    margin-right: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .parrafo img:only-child {
+    max-width: 100%;
+    max-height: 300px;
+    overflow: hidden;
+  }
+  
+
+
   .ultimos-articulos h2 {
     margin-top: 60px;
     margin-bottom: 50px;
@@ -1177,6 +1206,7 @@ body {
     height: 100%;
     padding-top: 20px;
   }
+
   .jumbo h1 {
     font-size: 25px;
     color: var(--color1);
@@ -1193,15 +1223,6 @@ body {
     margin-bottom: 10px;
   }
 
-  .parrafo img {
-    display: inline-block;
-    height: auto;
-    margin: 5px 5px;
-}
-
-img {
-  width: 137px;
-}
 
   form {
     padding: 14px;

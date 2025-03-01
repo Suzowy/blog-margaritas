@@ -93,6 +93,32 @@ const Sidebar = ({ articulos = [] }) => {
           <button className="ver-menos" onClick={() => setMostrarTodo(false)}>Ver menos</button>
         )}
       </div>
+
+      <h2>¿Quienes somos?</h2>
+      <section className="section about">
+
+        <div className="texto-left">
+
+          <div className="foto-about">
+            <img
+              className="foto"
+              src="/img/nosotras.jpeg"
+              alt="foto de nosotras"
+            />
+          </div>
+          <p>
+            Somos M. y M. Lectoras empedernidas y amantes de todo lo hogareño que nos transmita calma
+            y paz. Por eso coleccionamos tazas, bufandas y adornos navideños. Viajamos para probar
+            buenos platos y comprar buenas historias. Atentas a los pequeños detalles que nos hacen
+            sonreír, preferimos regalar a que nos regalen. Por lo general, se nos puede encontrar en
+            alguna cafetería tomando chocolate caliente o perdidas en librerías con encanto donde no
+            existe el concepto tiempo.
+          </p>
+          <br />
+
+        </div>
+       </section>
+
     </aside>
   );
 };

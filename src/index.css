@@ -268,6 +268,8 @@ color: var(--color6) !important;
   font-weight: 500;
   color: var(--color1);
   margin-bottom: 20px;
+margin: 0 auto;
+  width: 80%;
   height: 95px;
   overflow: hidden;
 }
@@ -771,7 +773,7 @@ input[type="time"]:focus {
 
 .articulo-item img {
   width: 100% !important; /* La imagen se ajustará al ancho del contenedor */
-  max-height:300px !important; /* Mantendrá la proporción */
+  max-height:400px !important; /* Mantendrá la proporción */
   max-width: 100% !important;
   aspect-ratio: auto !important; /* Elimina la relación de aspecto fija */
   display: block;
@@ -1154,7 +1156,6 @@ body {
   }
   .articulo-item .mascara img {
     width: 65%;
-    height: 200px;
     margin: 0 auto;
   }
   .mascara p {
@@ -1175,7 +1176,7 @@ body {
   
   .parrafo img:only-child {
     max-width: 100%;
-    max-height: 300px;
+    max-height:400px;
     overflow: hidden;
   }
   

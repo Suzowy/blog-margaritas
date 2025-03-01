@@ -1,6 +1,10 @@
-
+import { useEffect } from "react";
 
 const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Desplazamos al inicio de la página cuando se visita About
+  }, []);
+
   return (
     <>
       {/* Sección Algo más sobre nosotras */}
@@ -32,10 +36,9 @@ const About = () => {
           </p>
           <br />
         </div>
-
       </section>
     </>
   );
 };
 
-export default About
+export default About;

@@ -21,6 +21,7 @@ export const Rutas = () => {
   const [articulos, setArticulos] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     conseguirUltimosArticulos();
   }, []);
 

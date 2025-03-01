@@ -12,9 +12,10 @@ const Inicio = () => {
     <>
     <div className='portada'>
      
-        <blockquote>
-          Un lugar donde compartir la belleza de las pequeñas cosas y soñar con la próxima aventura
-        </blockquote>
+    <blockquote data-text="Texto Neón">
+  Un lugar donde compartir la belleza de las pequeñas cosas y soñar con la próxima aventura
+</blockquote>
+
         {/* <Link to="/articulos" className="button">Ver los articulos</Link> */}
      
 

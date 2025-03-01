@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Importa los estilos de Quill
 
 const Crear = () => {
-  const { formulario, cambiado } = useForm({});
+  const { formulario, cambiado, resetForm } = useForm({});
   const [resultado, setResultado] = useState("no_enviado");
   const [imagenPreview, setImagenPreview] = useState(null);
   const [imagenArchivo, setImagenArchivo] = useState(null);
@@ -41,9 +41,23 @@ const Crear = () => {
 
         if (subida.status === "success") {
           setResultado("guardado");
+
+          // Limpiar el formulario y las imágenes después de guardar correctamente
+          resetForm(); // Limpiar el formulario
+          setFecha(new Date().toISOString().split("T")[0]); // Restablecer la fecha
+          setContenido(""); // Limpiar el contenido del editor Quill
+          setImagenPreview(null); // Limpiar la vista previa de la imagen
+          setImagenArchivo(null); // Limpiar el archivo de imagen
         } else {
           setResultado("error");
         }
+      } else {
+        // Limpiar el formulario cuando no se sube imagen
+        resetForm(); // Limpiar el formulario
+        setFecha(new Date().toISOString().split("T")[0]); // Restablecer la fecha
+        setContenido(""); // Limpiar el contenido del editor Quill
+        setImagenPreview(null); // Limpiar la vista previa de la imagen
+        setImagenArchivo(null); // Limpiar el archivo de imagen
       }
     } else {
       setResultado("error");
@@ -75,9 +89,6 @@ const Crear = () => {
     }
   };
 
-
-  
-
   return (
     <>
       <h2 className="crear-h2">Crear Artículo</h2>
@@ -88,12 +99,12 @@ const Crear = () => {
       <form className="formulario" onSubmit={guardarArticulo}>
         <div className="form-group">
           <label htmlFor="titulo">Título <span>*</span></label>
-          <input type="text" name="titulo" onChange={cambiado} required placeholder="Escribe el título de tu artículo." />
+          <input type="text" name="titulo" onChange={cambiado} value={formulario.titulo || ""} required placeholder="Escribe el título de tu artículo." />
         </div>
 
         <div className="form-group">
           <label htmlFor="autor">Autor <span>*</span></label>
-          <input type="text" name="autor" onChange={cambiado} required placeholder="Nombre del autor." />
+          <input type="text" name="autor" onChange={cambiado} value={formulario.autor || ""} required placeholder="Nombre del autor." />
         </div>
 
         <div className="form-group">
@@ -109,23 +120,22 @@ const Crear = () => {
         <div className="form-group">
           <label htmlFor="contenido">Contenido <span>*</span></label>
           <ReactQuill
-  value={contenido}
-  onChange={setContenido}  
-  theme="snow"
-  modules={{
-    toolbar: [
-      [{ size: ['small', 'medium', 'large'] }],
-      ['bold', 'italic', 'underline'],
-      ['link'],
-      [
-        { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1'] }, // Colores personalizados
-        { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] } // Fondos personalizados
-      ],
-      ['blockquote'],
-    ],
-  }}
-/>
-
+            value={contenido}
+            onChange={setContenido}
+            theme="snow"
+            modules={{
+              toolbar: [
+                [{ size: ['small', 'medium', 'large'] }],
+                ['bold', 'italic', 'underline'],
+                ['link'],
+                [
+                  { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1'] },
+                  { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] }
+                ],
+                ['blockquote'],
+              ],
+            }}
+          />
         </div>
 
         <div

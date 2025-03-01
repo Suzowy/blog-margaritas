@@ -1,41 +1,45 @@
 import { useState } from "react";
 
-export const useForm = ( objetoInicial = {} ) => {
+export const useForm = (objetoInicial = {}) => {
+  const [formulario, setFormulario] = useState(objetoInicial);
 
-    const [formulario, setFormulario] = useState(objetoInicial);
+  const serializarFormulario = (formulario) => {
+    const formData = new FormData(formulario);
+    const objetoCompleto = {};
 
-    const serializarFormulario = (formulario) => {
-        const formData = new FormData(formulario);
-        const objetoCompleto = {};
-
-        for (let [name, value] of formData) {
-            objetoCompleto[name] = value;
-        }
-
-        return objetoCompleto;
+    for (let [name, value] of formData) {
+      objetoCompleto[name] = value;
     }
 
-    const enviado = (e) => {
-        e.preventDefault();
+    return objetoCompleto;
+  };
 
-        let curso = serializarFormulario(e.target);
-        setFormulario(curso);
+  const enviado = (e) => {
+    e.preventDefault();
 
-        document.querySelector(".codigo").classList.add("enviado")
-    }
+    let curso = serializarFormulario(e.target);
+    setFormulario(curso);
 
-    const cambiado = ({ target }) => {
-        const { name, value } = target;
+    document.querySelector(".codigo").classList.add("enviado");
+  };
 
-        setFormulario({
-            ...formulario,
-            [name]: value
-        })
-    }
+  const cambiado = ({ target }) => {
+    const { name, value } = target;
 
-    return {
-        formulario,
-        enviado,
-        cambiado
-    }
-}
+    setFormulario({
+      ...formulario,
+      [name]: value,
+    });
+  };
+
+  const resetForm = () => {
+    setFormulario(objetoInicial); // Esto restablece el formulario a su estado inicial
+  };
+
+  return {
+    formulario,
+    enviado,
+    cambiado,
+    resetForm, // Aquí agregamos la función resetForm
+  };
+};

@@ -41,6 +41,13 @@ blockquote::after {
   --color4: #b9a782;
   --color5: #bba7a1;
   --color6: #3e7b6ee2;
+  --color7: #fcd2bc;
+  --color8: #e2a285;
+  --color9:  #b88975;
+  --color10: #fce0ca;
+  
+ 
+  
 }
 
 * {
@@ -131,11 +138,10 @@ h6 {
   transition: transform 300ms ease-in-out;
 }
 
-.welcome{
-font-family: var(--fuente-handmade)!important;
-font-size: 22px !important;
-color: var(--color6) !important;
-
+.welcome {
+  font-family: var(--fuente-handmade) !important;
+  font-size: 22px !important;
+  color: var(--color6) !important;
 }
 
 /* Button toggle */
@@ -268,7 +274,7 @@ color: var(--color6) !important;
   font-weight: 500;
   color: var(--color1);
   margin-bottom: 20px;
-margin: 0 auto;
+  margin: 0 auto;
   width: 80%;
   height: 95px;
   overflow: hidden;
@@ -303,6 +309,46 @@ margin: 0 auto;
   background-color: var(--color1); /* Cambio de color al pasar el cursor */
 }
 
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-top: 50px;
+  gap: 10px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+}
+
+.paginacion button {
+  background: transparent;
+  border: 1px solid #faf6f6;
+  padding: 5px 10px;
+  font-family: var(--fuente-handmade);
+  font-size: 20px;
+  color: var(--color1);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 20px;
+}
+
+.paginacion button.ver-mas {
+  font-family: var(--fuente-handmade);
+  font-size: 16px;
+}
+
+.paginacion button:hover {
+  background: var(--color2);
+  color: white;
+}
+
+.paginacion .pagina.activa {
+  background: var(--color2);
+  color: white;
+  font-weight: bold;
+  border: 1px solid rgb(84, 84, 84);
+}
+
 /* Estilos para Formularios Generales */
 form {
   padding: 25px;
@@ -313,7 +359,7 @@ form {
   max-width: 700px;
 }
 
-.formulario-login{
+.formulario-login {
   width: 60%;
 }
 
@@ -343,8 +389,6 @@ textarea:focus,
 select:focus {
   border-color: var(--color2);
 }
-
-
 
 /* Estilos de Etiquetas */
 label {
@@ -416,7 +460,7 @@ textarea::placeholder {
 }
 
 .ql-editor u,
-.jumbo u{
+.jumbo u {
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1) !important;
   font-size: 20px;
@@ -425,7 +469,6 @@ textarea::placeholder {
   text-decoration-color: var(--color6) !important;
   text-underline-offset: 2px;
 }
-
 
 /* Área de edición */
 .ql-editor {
@@ -446,7 +489,6 @@ textarea::placeholder {
   font-style: italic;
 }
 
-
 .ql-editor span[style*="font-size"] {
   font-family: var(--fuente-secundaria) !important;
 }
@@ -460,7 +502,6 @@ textarea::placeholder {
 .ql-editor h6 {
   font-family: var(--fuente-secundaria) !important;
 } */
-
 
 /* Estilos personalizados para los bloques de cita */
 .ql-editor blockquote,
@@ -496,9 +537,6 @@ textarea::placeholder {
   font-style: oblique;
   font-weight: 600;
 }
-
-
-
 
 h4.autor,
 span.fecha {
@@ -725,7 +763,8 @@ input[type="time"]:focus {
   color: var(--color6);
 }
 
-.ver-mas, .ver-menos {
+.ver-mas,
+.ver-menos {
   margin-top: 10px;
   margin-bottom: 60px;
 }
@@ -770,15 +809,15 @@ input[type="time"]:focus {
   width: 100%;
 }
 
+
+
 .articulo-item img {
   width: 100% !important; /* La imagen se ajustará al ancho del contenedor */
-  max-height:400px !important; /* Mantendrá la proporción */
+  max-height: 400px !important; /* Mantendrá la proporción */
   max-width: 100% !important;
   aspect-ratio: auto !important; /* Elimina la relación de aspecto fija */
   display: block;
 }
-
-
 
 .parrafo img {
   max-width: calc(50% - 10px);
@@ -794,10 +833,6 @@ input[type="time"]:focus {
   max-height: 500px;
   overflow: hidden;
 }
-
-
-
-
 
 /* Estilo para el estado de "Cargando..." */
 .jumbo .loading {
@@ -839,14 +874,28 @@ input[type="time"]:focus {
   position: absolute;
   top: 8%;
   width: 50%;
-  color: white;
+  color: var(--color3);
   text-transform: uppercase;
   padding: 0 10px;
   text-shadow: 7px 5px 6px rgb(0, 0, 0);
   z-index: 10;
   font-size: 40px;
   font-weight: 200;
+  transition: text-shadow 1s ease; /* Aumenta la duración a 1 segundo */
 }
+
+.portada blockquote:hover {
+  color: white;
+  text-shadow: 
+    0 0 5px var(--color7), 
+    0 0 10px var(--color7), 
+    0 0 15px var(--color8), 
+    0 0 20px var(--color9), 
+    0 0 30px var(--color9), 
+    0 0 40px var(--color10), 
+    0 0 50px var(--color10);
+}
+
 
 .manifiesto .button {
   background-color: var(--color2);
@@ -946,7 +995,7 @@ body {
   color: #131313;
 }
 
-.botones .button  {
+.botones .button {
   background-color: var(--color3);
   color: white;
   padding: 12px 15px;
@@ -957,12 +1006,12 @@ body {
   transition: background-color 300ms ease;
 }
 
-.cerrar-sesion{
+.cerrar-sesion {
   background-color: var(--color4);
   color: white;
   padding: 12px 12px;
   font-size: 10px;
-  border-radius:50px;
+  border-radius: 50px;
   border: none;
   cursor: pointer;
   transition: background-color 300ms ease;
@@ -973,7 +1022,8 @@ body {
   text-decoration: none;
 }
 
-.botones .button:hover, .cerrar-sesion:hover {
+.botones .button:hover,
+.cerrar-sesion:hover {
   background-color: var(--color5);
 }
 .lateral {
@@ -1107,7 +1157,6 @@ body {
     height: auto;
   }
 
-
   .ultimos-articulos ul {
     padding-left: 0px;
     text-align: center;
@@ -1146,7 +1195,7 @@ body {
 
   .articulo-item {
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 0px;
     margin-bottom: 20px;
     width: 90%;
   }
@@ -1172,14 +1221,12 @@ body {
     border-radius: 5px;
     overflow: hidden;
   }
-  
+
   .parrafo img:only-child {
     max-width: 100%;
-    max-height:400px;
+    max-height: 400px;
     overflow: hidden;
   }
-  
-
 
   .ultimos-articulos h2 {
     margin-top: 60px;
@@ -1212,10 +1259,9 @@ body {
     color: var(--color1);
     margin: 0;
   }
-  .formulario-login{
+  .formulario-login {
     width: 90%;
   }
-
 
   .parrafo {
     padding: 20px;
@@ -1223,11 +1269,10 @@ body {
     margin-bottom: 10px;
   }
 
-
   form {
     padding: 14px;
     width: 95%;
-}
+  }
 
   .search form {
     padding: 14px;

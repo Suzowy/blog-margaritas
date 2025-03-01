@@ -1268,6 +1268,13 @@ body {
     margin-top: 15px;
     margin-bottom: 10px;
   }
+  
+  .paginacion button {
+    padding: 5px 5px;
+    font-size: 16px;
+ 
+}
+
 
   form {
     padding: 14px;

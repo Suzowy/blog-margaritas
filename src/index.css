@@ -39,7 +39,7 @@ blockquote::after {
   --color2: #97afa6;
   --color3: #ebe9e5;
   --color4: #b9a782;
-  --color5: #bbb2a1;
+  --color5: #bba7a1;
   --color6: #3e7b6ee2;
 }
 
@@ -274,11 +274,13 @@ margin: 0 auto;
   overflow: hidden;
 }
 
-.articulo-item .datos .description p,
-span {
+.articulo-item .datos .description * {
   font-family: var(--fuente-secundaria) !important;
   font-size: 17px !important;
   color: var(--color1) !important;
+  background-color: transparent !important;
+  font-weight: lighter;
+  text-decoration: none;
 }
 
 .articulo-item .edit,
@@ -363,57 +365,10 @@ textarea::placeholder {
 }
 
 /* Contenedor del editor */
-
-/* Forzar la fuente principal en todo el editor */
-.ql-editor {
-  font-family: var(--fuente-secundaria) !important;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.ql-editor strong,
-.ql-editor span,
-.ql-editor p,
-.jumbo p,
-.jumbo strong {
-  font-family: var(--fuente-secundaria) !important;
-  color: var(--color1) !important;
-  font-size: 20px;
-}
-
-.ql-editor u,
-.jumbo u {
-  font-family: var(--fuente-secundaria) !important;
-  color: var(--color1) !important;
-  font-size: 20px;
-  text-decoration: underline;
-  text-decoration-thickness: 0.2px;
-  text-decoration-color: var(--color6) !important;
-  text-underline-offset: 2px;
-}
-
-
-.ql-editor span[style*="font-size"] {
-  font-family: var(--fuente-secundaria) !important;
-}
-
-/* Corrección para los encabezados */
-.ql-editor h1,
-.ql-editor h2,
-.ql-editor h3,
-.ql-editor h4,
-.ql-editor h5,
-.ql-editor h6 {
-  font-family: var(--fuente-secundaria) !important;
-}
-
-
-
-
 .ql-container {
   font-family: var(--fuente-secundaria);
   font-size: 16px;
-  background: #fff;
+  background: #ffffff;
   color: #333;
   border-radius: 10px;
   border: 2px solid #ccc;
@@ -446,12 +401,42 @@ textarea::placeholder {
   color: #fff;
 }
 
+/* Forzar la fuente principal en todo el editor */
+
+.ql-editor strong,
+.ql-editor span,
+.ql-editor p,
+.ql-editor li,
+.jumbo p,
+.jumbo strong,
+.jumbo li {
+  font-family: var(--fuente-secundaria) !important;
+  color: var(--color1);
+  font-size: 20px;
+}
+
+.ql-editor u,
+.jumbo u{
+  font-family: var(--fuente-secundaria) !important;
+  color: var(--color1) !important;
+  font-size: 20px;
+  text-decoration: underline;
+  text-decoration-thickness: 0.2px;
+  text-decoration-color: var(--color6) !important;
+  text-underline-offset: 2px;
+}
+
+
 /* Área de edición */
 .ql-editor {
-  font-family: var(--fuente-secundaria);
+  font-family: var(--fuente-secundaria) !important;
   font-size: 16px;
   line-height: 1.6;
-  padding: 10px;
+}
+
+.ql-editor p {
+  font-family: var(--fuente-secundaria) !important;
+  font-size: 20px;
 }
 
 /* Placeholder (texto de ayuda) */
@@ -460,6 +445,22 @@ textarea::placeholder {
   color: #aaa;
   font-style: italic;
 }
+
+
+.ql-editor span[style*="font-size"] {
+  font-family: var(--fuente-secundaria) !important;
+}
+
+/* Corrección para los encabezados */
+/* .ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+  font-family: var(--fuente-secundaria) !important;
+} */
+
 
 /* Estilos personalizados para los bloques de cita */
 .ql-editor blockquote,
@@ -475,10 +476,15 @@ textarea::placeholder {
 .jumbo a {
   color: var(--color6) !important;
   font-family: var(--fuente-secundaria);
-  font-style: oblique;
-  text-decoration: 1px solid #3e7b6ee2 underline;
+  font-style: italic;
+  text-decoration: 1.1px solid #3e7b6ee2 underline;
   font-weight: 600;
   transition: all 100ms ease-in;
+}
+.jumbo a:hover,
+.ql-editor a:hover {
+  font-weight: bold;
+  color: #5ba1d3 !important;
 }
 
 /*estilos resaltado obliqua*/
@@ -491,21 +497,13 @@ textarea::placeholder {
   font-weight: 600;
 }
 
-.jumbo a:hover,
-.ql-editor a:hover {
-  font-weight: bold;
-  color: #044e83;
-}
+
+
 
 h4.autor,
 span.fecha {
   font-family: var(--fuente-handmade) !important;
   color: var(--color6) !important;
-  font-size: 20px;
-}
-
-.ql-editor p {
-  font-family: var(--fuente-secundaria);
   font-size: 20px;
 }
 
@@ -714,6 +712,7 @@ input[type="time"]:focus {
 
 .ultimos-articulos ul li:hover {
   border-bottom: 1px solid var(--color6);
+  background-color: rgba(255, 255, 255, 0.318);
 }
 
 .ultimos-articulos h2 {
@@ -832,7 +831,7 @@ input[type="time"]:focus {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.8;
+  opacity: 0.9;
   object-position: center bottom;
 }
 

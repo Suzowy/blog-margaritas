@@ -1,4 +1,4 @@
-import  { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Importa los estilos de Quill
 import { useParams, useNavigate } from "react-router-dom";
@@ -158,16 +158,19 @@ const Editar = () => {
 
         <div className="form-group">
           <label htmlFor="contenido">Contenido <span>*</span></label>
-                  <ReactQuill
+          <ReactQuill
             value={contenido}
             onChange={setContenido}  // Aquí se actualiza el contenido con formato
             theme="snow"
             modules={{
               toolbar: [
-                [{ size: ['small', 'medium', 'large', 'huge'] }],
+                [{ size: ['small', 'medium', 'large'] }],
                 ['bold', 'italic', 'underline'],
                 ['link'],
-                [{ color: [] }, { background: [] }],
+                [
+                  { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1'] }, // Colores personalizados
+                  { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] } // Fondos personalizados
+                ],
                 ['blockquote'],
               ],
             }}
@@ -192,6 +195,8 @@ const Editar = () => {
         </div>
 
         <input type="submit" value="Guardar" className="btn btn-success" />
+        <strong>{resultado === "guardado" ? "Artículo guardado con éxito!!" : ""}</strong>
+        <strong>{resultado === "error" ? "Los datos proporcionados son incorrectos!!" : ""}</strong>
       </form>
     </>
   );

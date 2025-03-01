@@ -66,33 +66,34 @@ const Sidebar = ({ articulos = [] }) => {
       </div>
 
       <div className="ultimos-articulos">
-        <h2>Últimos Artículos</h2>
-        {cargando ? (
-          <p>Cargando...</p>
-        ) : (
-          articulosAMostrar.length > 0 ? (
-            <ul>
-              {articulosAMostrar.map((articulo) => (
-                <li key={articulo._id}>
-                  <Link to={`/articulo/${articulo._id}`}>
-                    <h3>{articulo.titulo}</h3>
-                  </Link>
-                  {articulo.fecha && <h4>{formatFecha(articulo.fecha)}</h4>}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No hay artículos que coincidan con la búsqueda.</p>
-          )
-        )}
+  <h2>Últimos Artículos</h2>
+  {cargando ? (
+    <p>Cargando...</p>
+  ) : (
+    articulosAMostrar.length > 0 ? (
+      <ul>
+        {articulosAMostrar.map((articulo) => (
+          <li key={articulo._id} onClick={() => window.scrollTo(0, 0)}>
+            <Link to={`/articulo/${articulo._id}`}>
+              <h3>{articulo.titulo}</h3>
+            </Link>
+            {articulo.fecha && <h4>{formatFecha(articulo.fecha)}</h4>}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No hay artículos que coincidan con la búsqueda.</p>
+    )
+  )}
 
-        {resultados.length > 5 && !mostrarTodo && (
-          <button className="ver-mas" onClick={() => setMostrarTodo(true)}>Ver todo</button>
-        )}
-        {mostrarTodo && (
-          <button className="ver-menos" onClick={() => setMostrarTodo(false)}>Ver menos</button>
-        )}
-      </div>
+  {resultados.length > 5 && !mostrarTodo && (
+    <button className="ver-mas" onClick={() => setMostrarTodo(true)}>Ver todo</button>
+  )}
+  {mostrarTodo && (
+    <button className="ver-menos" onClick={() => setMostrarTodo(false)}>Ver menos</button>
+  )}
+</div>
+
 
       <h2>¿Quienes somos?</h2>
       <section className="section about">

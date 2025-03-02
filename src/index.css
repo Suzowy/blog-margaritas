@@ -146,8 +146,9 @@ h6 {
 }
 
 .welcome {
-  font-family: var(--fuente-handmade) !important;
-  font-size: 22px !important;
+  font-family: var(--fuente-secundaria) !important;
+  font-size: 19px !important;
+  text-decoration: underline;
   color: var(--color6) !important;
 }
 
@@ -1029,14 +1030,15 @@ body {
 }
 
 .cerrar-sesion {
-  background-color: var(--color4);
-  color: white;
+  background-color:transparent;
+  color:rgb(164, 47, 47);
   padding: 12px 12px;
   font-size: 10px;
-  border-radius: 50px;
   border: none;
   cursor: pointer;
-  transition: background-color 300ms ease;
+}
+.cerrar-sesion:hover{
+  color: red;
 }
 
 .botones .button a {
@@ -1044,8 +1046,7 @@ body {
   text-decoration: none;
 }
 
-.botones .button:hover,
-.cerrar-sesion:hover {
+.botones .button:hover{
   background-color: var(--color5);
 }
 .lateral {

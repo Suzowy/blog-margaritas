@@ -20,8 +20,8 @@ const Nav = () => {
         {/* Mostrar el nombre de usuario y el botón de cerrar sesión si está autenticado */}
         {isAuthenticated ? (
           <>
-            <span className='welcome'>Bienvenidas, {username}</span>
-            <li><button className='cerrar-sesion' onClick={logout}>Salir</button></li>
+            <span className='welcome'>Bienvenidas: {username}</span>
+            <li><button className='cerrar-sesion' onClick={logout}>Cerrar sesion X</button></li>
           </>
         ) : (
           <li><Link to="/login">Iniciar sesión</Link></li>

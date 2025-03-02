@@ -98,7 +98,7 @@ const Listado = ({ articulos, setArticulos }) => {
     return (
         <>
 
-            <div className="paginacion">
+            {/* <div className="paginacion">
                 <button className="ver-mas"
                     onClick={() => setPaginaActual(paginaActual - 1)}
                     disabled={paginaActual === 1}
@@ -112,8 +112,8 @@ const Listado = ({ articulos, setArticulos }) => {
                 >
                     Siguiente
                 </button>
-            </div>
-            <blockquote className='blockquote'>
+            </div> */}
+            <blockquote className='intro'>
                 Un lugar donde compartir la belleza de las pequeñas cosas y soñar con la próxima aventura
             </blockquote>
             {articulosPaginados.map((articulo) => (

@@ -512,7 +512,18 @@ textarea::placeholder {
 } */
 
 /* Estilos personalizados para los bloques de cita */
-.blockquote,
+
+
+.intro{
+  font-family: var(--fuente-handmade);
+  color: var(--color6);
+  text-align: center;
+  padding: 5px;
+  margin-top: 50px;
+  width:40% ;
+  font-size: 30px;
+}
+
 .ql-editor blockquote,
 .jumbo blockquote {
   font-family: var(--fuente-handmade) !important;
@@ -1192,6 +1203,11 @@ body {
 }
 
 @media screen and (max-width: 480px) {
+
+  .intro{
+    width:70% ;
+  }
+
   .portada blockquote {
     width: 80%;
     font-size: 28px;

@@ -201,10 +201,16 @@ h6 {
   margin-top: 50px;
   margin-bottom: 10px;
 }
-.parrafo p {
+.parrafo p, .parrafo * {
   margin: 0 auto;
+  font-size: 17px !important;
   line-height: 1.5;
 }
+.parrafo blockquote{
+  font-size: 25px !important;
+  color: #721c24;
+  }
+
 
 .articulo-item {
   display: flex;
@@ -412,9 +418,9 @@ label {
 
 input::placeholder,
 textarea::placeholder {
-  color: #424242;
+  color: #363636c8;
   font-family: var(--fuente-secundaria);
-  font-size: 17px;
+  font-size: 15px;
 }
 
 /* Contenedor del editor */
@@ -462,6 +468,7 @@ textarea::placeholder {
 .ql-editor li,
 .jumbo p,
 .jumbo strong,
+.jumbo span,
 .jumbo li {
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
@@ -594,9 +601,9 @@ button[type="button"]:hover,
 
 .form-span,
 span {
-  font-size: 25px;
-  font-family: var(--fuente-secundaria);
-  color: var(--color6);
+  font-size: 15px;
+  font-family: var(--fuente-principal);
+  color: var(--color9);
 }
 
 .form-group .mascara {
@@ -1031,14 +1038,14 @@ body {
 
 .cerrar-sesion {
   background-color:transparent;
-  color:rgb(164, 47, 47);
+  color: var(--color9);
   padding: 12px 12px;
-  font-size: 10px;
+  font-size: 15px;
   border: none;
   cursor: pointer;
 }
 .cerrar-sesion:hover{
-  color: red;
+  color: rgb(177, 29, 29);
 }
 
 .botones .button a {
@@ -1057,8 +1064,11 @@ body {
 /* Pie de Página */
 .footer {
   grid-area: footer;
-  background: linear-gradient(100deg, var(--color2) 5%, var(--color5) 100%);
-  color: #ffffff;
+  background-image: url("/src/assets/imagenes/portada-margaritas.jpg");
+  background-image: url("/src/assets/imagenes/portada-margaritas.jpg");
+  background-size: cover;
+  background-position-y: 74%;
+  color: var(--color9);
   border-top: 1px solid white;
   text-align: center;
   padding-left: 25px;
@@ -1234,6 +1244,9 @@ body {
   .texto-left {
     width: 80%;
   }
+  .texto-left p {
+    font-size: 15px;
+}
 
   .articulo-item {
     flex-direction: column;
@@ -1277,6 +1290,15 @@ body {
     max-height: 400px;
     overflow: hidden;
   }
+
+  .parrafo p, .parrafo * {
+    font-size: 16px !important;
+  }
+
+  .parrafo blockquote{
+  font-size: 20px !important;
+  }
+
 
   .ultimos-articulos h2 {
     margin-top: 60px;

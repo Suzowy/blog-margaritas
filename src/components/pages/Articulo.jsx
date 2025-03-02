@@ -81,7 +81,7 @@ const Articulo = () => {
           {articulo.autor && <h4 className="autor">{articulo.autor}</h4>}
           {articulo.fecha && <span className="fecha">{formatFecha(articulo.fecha)}</span>}
           <div className="parrafo" dangerouslySetInnerHTML={{ __html: articulo.contenido }} />
-
+          {articulo.autor && <h4 className="autor">{articulo.autor}</h4>}
           {siguienteArticulo() && (
             <button className="ver-mas" onClick={irAlSiguienteArticulo}>
              Leer mas

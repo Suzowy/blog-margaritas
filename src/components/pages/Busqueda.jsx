@@ -1,21 +1,30 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import Global from '../../helpers/Global';
 import { Peticion } from '../../helpers/Peticion';
 import Listado from './Listado';
 
 const Busqueda = () => {
   const [articulos, setArticulos] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const params = useParams();
+  const [cargando, setCargando] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
 
   useEffect(() => {
-    conseguirArticulos();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params]);
+    if (busqueda.trim() === "") {
+      setArticulos([]);
+      return;
+    }
 
-  const conseguirArticulos = async () => {
-    const { datos } = await Peticion(Global.url + "buscar/" + params.busqueda, "GET");
+    setCargando(true);
+
+    const delayDebounce = setTimeout(() => {
+      conseguirArticulos(busqueda);
+    }, 300); // Se espera 300ms antes de hacer la petición
+
+    return () => clearTimeout(delayDebounce); // Limpia el timeout si el usuario sigue escribiendo
+  }, [busqueda]);
+
+  const conseguirArticulos = async (query) => {
+    const { datos } = await Peticion(Global.url + "buscar/" + query, "GET");
 
     if (datos?.status === "success") {
       setArticulos(datos.articulos);
@@ -27,8 +36,16 @@ const Busqueda = () => {
 
   return (
     <>
+      <input
+        type="text"
+        placeholder="Buscar artículos..."
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+        style={{ padding: "10px", fontSize: "16px", width: "100%" }}
+      />
+
       {cargando ? (
-        "Cargando..."
+        <p>Cargando...</p>
       ) : articulos.length >= 1 ? (
         <Listado articulos={articulos} setArticulos={setArticulos} />
       ) : (

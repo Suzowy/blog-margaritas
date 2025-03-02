@@ -18,6 +18,7 @@ const Crear = () => {
 
     let nuevoArticulo = {
       ...formulario,
+      autor: formulario.autor?.trim() ? formulario.autor : "M&M",
       fecha,
       contenido,
     };
@@ -42,7 +43,6 @@ const Crear = () => {
         if (subida.status === "success") {
           setResultado("guardado");
 
-
           resetForm();
           setFecha(new Date().toISOString().split("T")[0]);
           setContenido("");
@@ -52,7 +52,6 @@ const Crear = () => {
           setResultado("error");
         }
       } else {
-
         resetForm();
         setFecha(new Date().toISOString().split("T")[0]);
         setContenido("");
@@ -103,8 +102,8 @@ const Crear = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="autor">Autor <span>*</span></label>
-          <input type="text" name="autor" onChange={cambiado} value={formulario.autor || ""} required placeholder="Nombre del autor." />
+          <label htmlFor="autor">Autor</label>
+          <input type="text" name="autor" onChange={cambiado} value={formulario.autor || ""} placeholder="Nombre del autor (si no escribes nada por defecto será M&M.)" />
         </div>
 
         <div className="form-group">
@@ -125,12 +124,11 @@ const Crear = () => {
             theme="snow"
             modules={{
               toolbar: [
-                [{ size: ['small', 'medium', 'large'] }],
                 ['bold', 'italic', 'underline'],
                 ['link'],
                 [
-                  { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1'] },
-                  { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] }
+                  { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] },
+                  { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] }
                 ],
                 ['blockquote'],
               ],

@@ -164,12 +164,11 @@ const Editar = () => {
             theme="snow"
             modules={{
               toolbar: [
-                [{ size: ['small', 'medium', 'large'] }],
                 ['bold', 'italic', 'underline'],
                 ['link'],
                 [
-                  { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1'] }, // Colores personalizados
-                  { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] } // Fondos personalizados
+                  { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] },
+                  { background: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] }
                 ],
                 ['blockquote'],
               ],

@@ -48,7 +48,7 @@ const Listado = ({ articulos, setArticulos }) => {
     const renderPaginacion = () => {
         const paginas = [];
         const maxVisiblePages = 6;
-        
+
         // Si hay más de 6 páginas, renderizar las primeras 3, las últimas 3 y la página actual.
         if (totalPaginas > maxVisiblePages) {
             if (paginaActual <= 4) {
@@ -79,6 +79,7 @@ const Listado = ({ articulos, setArticulos }) => {
         }
 
         return paginas.map((pagina, index) => (
+
             <button
                 key={index}
                 className={`pagina ${paginaActual === pagina ? 'activa' : ''}`}
@@ -96,6 +97,7 @@ const Listado = ({ articulos, setArticulos }) => {
 
     return (
         <>
+
             <div className="paginacion">
                 <button className="ver-mas"
                     onClick={() => setPaginaActual(paginaActual - 1)}
@@ -111,7 +113,9 @@ const Listado = ({ articulos, setArticulos }) => {
                     Siguiente
                 </button>
             </div>
-
+            <blockquote className='blockquote'>
+                Un lugar donde compartir la belleza de las pequeñas cosas y soñar con la próxima aventura
+            </blockquote>
             {articulosPaginados.map((articulo) => (
                 <article key={articulo._id} className="articulo-item">
                     <div className="mascara">

@@ -1,10 +1,9 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext'; // Asegúrate de importar el AuthContext
+import { AuthContext } from '../../context/AuthContext';
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated, username, logout } = useContext(AuthContext); // Accedemos al nombre de usuario y estado de autenticación
-
+  const { isAuthenticated, username, logout } = useContext(AuthContext);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -13,7 +12,7 @@ const Nav = () => {
     <nav className="nav">
       <button className="toggle-btn" onClick={toggleMenu}>☰</button>
       <ul className={isOpen ? 'active' : ''}>
-        <li><Link to="/inicio">Inicio</Link></li>
+        {/* <li><Link to="/inicio">Inicio</Link></li> */}
         <li><Link to="/articulos">Artículos</Link></li>
         {isAuthenticated && <li><Link to="/crear">Crear artículos</Link></li>}
         <li><Link to="/about">Quienes somos</Link></li>

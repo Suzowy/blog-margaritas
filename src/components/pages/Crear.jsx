@@ -3,7 +3,7 @@ import { useForm } from "../../hooks/useForm";
 import Global from "../../helpers/Global";
 import { Peticion } from "../../helpers/Peticion";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Importa los estilos de Quill
+import "react-quill/dist/quill.snow.css";
 
 const Crear = () => {
   const { formulario, cambiado, resetForm } = useForm({});
@@ -11,7 +11,7 @@ const Crear = () => {
   const [imagenPreview, setImagenPreview] = useState(null);
   const [imagenArchivo, setImagenArchivo] = useState(null);
   const [fecha, setFecha] = useState(new Date().toISOString().split("T")[0]);
-  const [contenido, setContenido] = useState("");  // Guardar el contenido con formato
+  const [contenido, setContenido] = useState("");
 
   const guardarArticulo = async (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const Crear = () => {
     let nuevoArticulo = {
       ...formulario,
       fecha,
-      contenido,  // El contenido con formato se guarda aquí
+      contenido,
     };
 
     const { datos, error } = await Peticion(Global.url + "crear", "POST", nuevoArticulo);
@@ -42,22 +42,22 @@ const Crear = () => {
         if (subida.status === "success") {
           setResultado("guardado");
 
-          // Limpiar el formulario y las imágenes después de guardar correctamente
-          resetForm(); // Limpiar el formulario
-          setFecha(new Date().toISOString().split("T")[0]); // Restablecer la fecha
-          setContenido(""); // Limpiar el contenido del editor Quill
-          setImagenPreview(null); // Limpiar la vista previa de la imagen
-          setImagenArchivo(null); // Limpiar el archivo de imagen
+
+          resetForm();
+          setFecha(new Date().toISOString().split("T")[0]);
+          setContenido("");
+          setImagenPreview(null);
+          setImagenArchivo(null);
         } else {
           setResultado("error");
         }
       } else {
-        // Limpiar el formulario cuando no se sube imagen
-        resetForm(); // Limpiar el formulario
-        setFecha(new Date().toISOString().split("T")[0]); // Restablecer la fecha
-        setContenido(""); // Limpiar el contenido del editor Quill
-        setImagenPreview(null); // Limpiar la vista previa de la imagen
-        setImagenArchivo(null); // Limpiar el archivo de imagen
+
+        resetForm();
+        setFecha(new Date().toISOString().split("T")[0]);
+        setContenido("");
+        setImagenPreview(null);
+        setImagenArchivo(null);
       }
     } else {
       setResultado("error");

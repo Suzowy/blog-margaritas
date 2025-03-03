@@ -14,6 +14,7 @@ const formatFecha = (fecha) => {
 };
 
 // Mapeo de nombres de meses a sus índices
+// eslint-disable-next-line no-unused-vars
 const meses = [
   "enero", "febrero", "marzo", "abril", "mayo", "junio",
   "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
@@ -24,7 +25,6 @@ const Sidebar = ({ articulos = [] }) => {
   const [mostrarTodo, setMostrarTodo] = useState(false);
   const [cargando, setCargando] = useState(true);
   const [busqueda, setBusqueda] = useState("");
-  const [fechaBusqueda, setFechaBusqueda] = useState("");
   const [resultados, setResultados] = useState([]);
 
   useEffect(() => {
@@ -42,41 +42,25 @@ const Sidebar = ({ articulos = [] }) => {
   };
 
   const filtrarResultados = (e) => {
-    const valor = e.target.value;
-    setBusqueda(valor);
-    if (valor.trim() === "") {
-      setResultados(articulos);
-    } else {
-      const coincidencias = articulos.filter(articulo =>
-        articulo.titulo.toLowerCase().includes(valor.toLowerCase())
-      );
-      setResultados(coincidencias);
-    }
-  };
+    const query = e.target.value.toLowerCase();
+    setBusqueda(query);
 
-  const filtrarPorFecha = (e) => {
-    const fechaSeleccionada = e.target.value.toLowerCase();
-    setFechaBusqueda(fechaSeleccionada);
-
-    if (fechaSeleccionada.trim() === "") {
+    if (query.trim() === "") {
       setResultados(articulos);
-    } else {
-      // Si se ingresa un mes, convertir el nombre del mes a su índice
-      if (meses.includes(fechaSeleccionada)) {
-        const mesNumero = meses.indexOf(fechaSeleccionada) + 1; // Indice empieza en 0, pero los meses empiezan en 1
-        const coincidencias = articulos.filter(articulo =>
-          articulo.fecha && new Date(articulo.fecha).getMonth() + 1 === mesNumero
-        );
-        setResultados(coincidencias);
-      }
-      // Si se ingresa un año (YYYY), filtrar solo por año
-      else if (fechaSeleccionada.length === 4) {
-        const coincidencias = articulos.filter(articulo =>
-          articulo.fecha && articulo.fecha.startsWith(fechaSeleccionada)
-        );
-        setResultados(coincidencias);
-      }
+      return;
     }
+
+    const coincidencias = articulos.filter((articulo) => {
+      const titulo = articulo.titulo.toLowerCase();
+      const fecha = new Date(articulo.fecha);
+
+      const mes = fecha.toLocaleString("es-ES", { month: "long" }).toLowerCase();
+      const año = fecha.getFullYear().toString();
+
+      return titulo.includes(query) || mes.includes(query) || año.includes(query);
+    });
+
+    setResultados(coincidencias);
   };
 
   const articulosAMostrar = mostrarTodo ? resultados : resultados.slice(0, 5);
@@ -86,26 +70,15 @@ const Sidebar = ({ articulos = [] }) => {
       <div className="search">
         <h2 className="title">Buscador</h2>
         <form onSubmit={hacerBusqueda}>
-          <label htmlFor="search_field">Buscar por título:</label>
+          <label htmlFor="search_field"></label>
           <input
             type="text"
             id="search_field"
             name="search_field"
             value={busqueda}
             onChange={filtrarResultados}
-            placeholder="Buscar artículos..."
+            placeholder="Buscar por título, mes (enero, febrero...) o año (yyyy)"
           />
-
-          <label htmlFor="search_date">Buscar por fecha (Año o Mes):</label>
-          <input
-            type="text"
-            id="search_date"
-            name="search_date"
-            value={fechaBusqueda}
-            onChange={filtrarPorFecha}
-            placeholder="Buscar por mes (enero, febrero...) o año (yyyy)"
-          />
-
           <button type="submit" id="search">Buscar</button>
         </form>
       </div>

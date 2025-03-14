@@ -460,13 +460,25 @@ textarea::placeholder {
   color: #fff;
 }
 
+
+/* Área de edición */
+.ql-editor {
+  font-family: var(--fuente-secundaria) !important;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.ql-editor p, .jumbo p {
+  font-family: var(--fuente-secundaria) !important;
+  font-size: 20px;
+  text-align: justify;
+}
+
 /* Forzar la fuente principal en todo el editor */
 
 .ql-editor strong,
 .ql-editor span,
-.ql-editor p,
 .ql-editor li,
-.jumbo p,
 .jumbo strong,
 .jumbo span,
 .jumbo li {
@@ -486,17 +498,7 @@ textarea::placeholder {
   text-underline-offset: 2px;
 }
 
-/* Área de edición */
-.ql-editor {
-  font-family: var(--fuente-secundaria) !important;
-  font-size: 16px;
-  line-height: 1.6;
-}
 
-.ql-editor p {
-  font-family: var(--fuente-secundaria) !important;
-  font-size: 20px;
-}
 
 /* Placeholder (texto de ayuda) */
 .ql-editor::before {
@@ -509,27 +511,16 @@ textarea::placeholder {
   font-family: var(--fuente-secundaria) !important;
 }
 
-/* Corrección para los encabezados */
-/* .ql-editor h1,
-.ql-editor h2,
-.ql-editor h3,
-.ql-editor h4,
-.ql-editor h5,
-.ql-editor h6 {
-  font-family: var(--fuente-secundaria) !important;
-} */
 
 /* Estilos personalizados para los bloques de cita */
-
-
 .intro{
   font-family: var(--fuente-handmade);
   color: var(--color6);
   text-align: center;
   padding: 5px;
   margin-top: 50px;
-  width:40% ;
-  font-size: 30px;
+  width:90% ;
+  font-size: 20px;
 }
 
 .ql-editor blockquote,
@@ -1216,7 +1207,8 @@ body {
 @media screen and (max-width: 480px) {
 
   .intro{
-    width:70% ;
+    margin-top: 20px;
+    width:90% ;
   }
 
   .portada blockquote {

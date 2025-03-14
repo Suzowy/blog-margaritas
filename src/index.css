@@ -357,15 +357,14 @@ h6 {
 }
 
 .paginacion button:hover {
-  background: var(--color2);
-  color: white;
+  font-weight: bold;
+  background-color: transparent;
+  border: 1px solid var(--color6);
 }
 
 .paginacion .pagina.activa {
-  background: var(--color2);
-  color: white;
   font-weight: bold;
-  border: 1px solid rgb(84, 84, 84);
+  border: 1px solid var(--color6);
 }
 
 /* Estilos para Formularios Generales */
@@ -475,8 +474,7 @@ textarea::placeholder {
 .ql-editor p, .jumbo p {
   font-family: var(--fuente-secundaria) !important;
   font-size: 20px;
-  white-space: normal; /* Permite que el texto se ajuste sin saltos raros */
-  word-break: break-word; /* Evita que palabras largas rompan el diseño */
+  text-align: left;
 }
 
 /* Forzar la fuente principal en todo el editor */
@@ -495,8 +493,6 @@ textarea::placeholder {
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   font-size: 25px;
-  white-space: normal;
-  word-break: break-word;
 }
 
 .ql-editor u,
@@ -527,7 +523,7 @@ textarea::placeholder {
 /* Estilos personalizados para los bloques de cita */
 .intro{
   font-family: var(--fuente-handmade);
-  color: var(--color6);
+  color: var(--color9);
   text-align: center;
   padding: 5px;
   margin-top: 50px;
@@ -819,17 +815,15 @@ input[type="time"]:focus {
 .parrafo {
   display: flex;
   flex-direction: column;
-  align-items: center;
   font-size: 16px;
   color: var(--color1);
-  text-align: justify;
   max-width: 800px;
-  margin: auto;
+  margin: 0 auto;
 }
 
-.parrafo p {
+/* .parrafo p {
   display: inline;
-}
+} */
 
 .imagenes {
   display: flex;
@@ -1081,10 +1075,10 @@ body {
 .footer .title {
   font-size: 50px;
   font-family: var(--fuente-handmade);
+  color: var(--color1);
 }
 
 .footer h5 {
-  font-weight: lighter;
   font-size: 20px;
 }
 
@@ -1334,8 +1328,8 @@ body {
   .jumbo h1 {
     font-size: 25px;
     color: var(--color1);
-    margin: 0;
   }
+
   .formulario-login {
     width: 90%;
   }

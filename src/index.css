@@ -485,11 +485,11 @@ textarea::placeholder {
   font-size: 20px;
 }
 
-.jumbo strong,
-.jumbo span{
+.jumbo .parrafo strong,
+.jumbo .parrafo span{
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
-  text-align: center;
+  text-align: center !important;
   font-size: 25px;
 }
 

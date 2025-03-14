@@ -195,23 +195,6 @@ h6 {
   text-align: l;
 }
 
-.parrafo {
-  padding: 20px;
-  text-align: justify;
-  margin-top: 50px;
-  margin-bottom: 10px;
-}
-.parrafo p, .parrafo * {
-  margin: 0 auto;
-  font-size: 17px !important;
-  line-height: 1.5;
-}
-.parrafo blockquote{
-  font-size: 25px !important;
-  color: #721c24;
-  }
-
-
 .articulo-item {
   display: flex;
   width: 90%;
@@ -492,8 +475,8 @@ textarea::placeholder {
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   font-size: 25px;
-  white-space: normal; /* Permite que el texto se ajuste sin saltos raros */
-  word-break: break-word; /* Evita que palabras largas rompan el diseño */
+  white-space: normal;
+  word-break: break-word;
 }
 
 .ql-editor u,
@@ -816,17 +799,30 @@ input[type="time"]:focus {
 .parrafo {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   font-size: 16px;
-  color: rgb(2, 62, 71);
+  color: var(--color1);
   text-align: justify;
   max-width: 800px;
   margin: auto;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
 }
 
-.parrafo p {
-  display: inline;
+
+.parrafo p, .parrafo * {
+ margin: 0;
+  font-size: 17px !important;
+  line-height: 1.5;
 }
+.parrafo blockquote{
+  font-size: 25px !important;
+  color: #721c24;
+  }
+
+
 
 .imagenes {
   display: flex;

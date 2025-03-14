@@ -472,6 +472,8 @@ textarea::placeholder {
   font-family: var(--fuente-secundaria) !important;
   font-size: 20px;
   text-align: justify;
+  white-space: normal; /* Permite que el texto se ajuste sin saltos raros */
+  word-break: break-word; /* Evita que palabras largas rompan el diseño */
 }
 
 /* Forzar la fuente principal en todo el editor */
@@ -485,12 +487,13 @@ textarea::placeholder {
   font-size: 20px;
 }
 
-.jumbo .parrafo strong,
-.jumbo .parrafo span{
+.jumbo strong,
+.jumbo span{
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
-  text-align: center !important;
   font-size: 25px;
+  white-space: normal; /* Permite que el texto se ajuste sin saltos raros */
+  word-break: break-word; /* Evita que palabras largas rompan el diseño */
 }
 
 .ql-editor u,

@@ -540,10 +540,17 @@ textarea::placeholder {
   font-size: 25px;
 }
 
-.jumbo strong{
+.jumbo strong {
+  display: flex;
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   text-align: center;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  line-height: 1.2;
 }
 
 /* Estilos para enlaces */

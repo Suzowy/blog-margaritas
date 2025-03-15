@@ -571,7 +571,7 @@ textarea::placeholder {
 }
 
 .jumbo strong {
-
+display:inline-flex;
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   width: 100%;

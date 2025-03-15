@@ -197,7 +197,7 @@ h6 {
 
 .parrafo {
   padding: 20px;
-  text-align: justify;
+ 
   margin-top: 50px;
   margin-bottom: 10px;
   white-space: normal; /* Permite que el texto se ajuste sin saltos raros */
@@ -474,7 +474,7 @@ textarea::placeholder {
 .ql-editor p, .jumbo p {
   font-family: var(--fuente-secundaria) !important;
   font-size: 20px;
-  text-align: left;
+  text-align: justify;
 }
 
 /* Forzar la fuente principal en todo el editor */
@@ -486,14 +486,15 @@ textarea::placeholder {
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   font-size: 20px;
+
 }
 
-.jumbo strong,
+/* .jumbo strong,
 .jumbo span{
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   font-size: 25px;
-}
+} */
 
 .ql-editor u,
 .jumbo u {
@@ -515,9 +516,9 @@ textarea::placeholder {
   font-style: italic;
 }
 
-.ql-editor span[style*="font-size"] {
+/* .ql-editor span[style*="font-size"] {
   font-family: var(--fuente-secundaria) !important;
-}
+} */
 
 
 /* Estilos personalizados para los bloques de cita */
@@ -532,11 +533,17 @@ textarea::placeholder {
 }
 
 .ql-editor blockquote,
-.jumbo blockquote {
+.jumbo blockquote{
   font-family: var(--fuente-handmade) !important;
   color: var(--color1);
   text-align: center;
   font-size: 25px;
+}
+
+.jumbo strong{
+  font-family: var(--fuente-secundaria) !important;
+  color: var(--color1);
+  text-align: center;
 }
 
 /* Estilos para enlaces */

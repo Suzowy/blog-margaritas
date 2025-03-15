@@ -572,7 +572,7 @@ textarea::placeholder {
 
 .jumbo strong {
 display:inline-flex;
-text-align: center;
+text-align: justify;
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   width: 100%;

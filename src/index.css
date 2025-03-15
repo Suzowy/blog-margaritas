@@ -482,7 +482,9 @@ textarea::placeholder {
 .ql-editor strong,
 .ql-editor span,
 .ql-editor li,
-.jumbo li {
+.jumbo li ,
+.jumbo strong,
+.jumbo span{
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   font-size: 20px;

@@ -197,7 +197,6 @@ h6 {
 
 .parrafo {
   padding: 20px;
- 
   margin-top: 50px;
   margin-bottom: 10px;
   white-space: normal; /* Permite que el texto se ajuste sin saltos raros */
@@ -211,6 +210,7 @@ h6 {
   word-break: break-word; /* Evita que palabras largas rompan el diseño */
   line-height: 1.5;
 }
+
 .parrafo blockquote{
   font-size: 25px !important;
   }
@@ -571,8 +571,7 @@ textarea::placeholder {
 }
 
 .jumbo strong {
-display: flex;
-flex-direction: row;
+
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   width: 100%;

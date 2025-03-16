@@ -218,7 +218,7 @@ h6 {
 
 .articulo-item {
   display: flex;
-  width: 90%;
+  max-width: 900px;
   height: 400px;
   margin-top: 30px;
   margin-bottom: 10px;
@@ -309,22 +309,29 @@ h6 {
 }
 
 .articulo-item .edit,
-.articulo-item .delete {
-  background-color: var(--color2); /* Botones de color pastel */
+.articulo-item .delete,
+.jumbo .delete,
+.jumbo .edit {
+  background-color: var(--color5); /* Botones de color pastel */
   color: white;
   border: none;
+  font-style: normal;
+  font-family: var(--fuente-principal);
   padding: 10px 15px;
   border-radius: 25px;
   cursor: pointer;
   font-size: 12px;
   margin-top: 10px;
   margin-left: 10px;
+  text-decoration: none;
   margin-right: 10px;
   transition: background-color 300ms ease;
 }
 
 .articulo-item .edit:hover,
-.articulo-item .delete:hover {
+.articulo-item .delete:hover,
+.jumbo .delete:hover,
+.jumbo .edit:hover {
   background-color: var(--color1); /* Cambio de color al pasar el cursor */
 }
 
@@ -507,16 +514,13 @@ textarea::placeholder {
 
 /* Forzar la fuente principal en todo el editor */
 
-.ql-editor strong,
 .ql-editor span,
 .ql-editor li,
 .jumbo li ,
-.jumbo strong,
 .jumbo span{
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   font-size: 20px;
-
 }
 
 /* .jumbo strong,
@@ -570,6 +574,7 @@ textarea::placeholder {
   font-size: 25px;
 }
 
+.ql-editor strong,
 .jumbo strong {
 display:inline-flex;
 text-align: justify;
@@ -582,7 +587,7 @@ text-align: justify;
 /* Estilos para enlaces */
 .ql-editor a,
 .jumbo a {
-  color: var(--color6) !important;
+  color: var(--color6);
   font-family: var(--fuente-secundaria);
   font-style: italic;
   text-decoration: 1.1px solid #3e7b6ee2 underline;

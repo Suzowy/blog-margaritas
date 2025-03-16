@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback, useContext } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Global from "../../helpers/Global";
 import { Peticion } from "../../helpers/Peticion";
+import { AuthContext } from "../../context/AuthContext";
 
 const Articulo = () => {
   const [articulo, setArticulo] = useState({});
@@ -9,6 +10,7 @@ const Articulo = () => {
   const [articulos, setArticulos] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
+  const { isAuthenticated } = useContext(AuthContext);
 
   const conseguirArticulos = useCallback(async () => {
     const { datos } = await Peticion(Global.url + "articulos", "GET");
@@ -31,7 +33,7 @@ const Articulo = () => {
   }, [conseguirArticulo, conseguirArticulos]);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Al cambiar de artículo, sube al inicio de la página
+    window.scrollTo(0, 0);
   }, [params.id]);
 
   const siguienteArticulo = () => {
@@ -46,6 +48,21 @@ const Articulo = () => {
     const siguiente = siguienteArticulo();
     if (siguiente) {
       navigate(`/articulo/${siguiente._id}`);
+    }
+  };
+
+  const manejarBorrar = async (id) => {
+    if (isAuthenticated) {
+      const confirmacion = window.confirm("¿Estás seguro de borrar este artículo permanentemente?");
+      if (confirmacion) {
+        const { datos } = await Peticion(Global.url + "articulo/" + id, "DELETE");
+        if (datos.status === "success") {
+          alert("Artículo eliminado correctamente.");
+          navigate("/");
+        }
+      }
+    } else {
+      alert("Necesitas iniciar sesión para eliminar un artículo.");
     }
   };
 
@@ -76,15 +93,27 @@ const Articulo = () => {
               alt={`Imagen de ${articulo.titulo}`}
             />
           </div>
-
+          {isAuthenticated && (
+            <>
+              <Link to={`/editar/${articulo._id}`} className="edit">Editar</Link>
+              <button className="delete" onClick={() => manejarBorrar(articulo._id)}>
+                Borrar
+              </button>
+            </>
+          )}
           <h1>{articulo.titulo}</h1>
           {articulo.autor && <h4 className="autor">{articulo.autor}</h4>}
           {articulo.fecha && <span className="fecha">{formatFecha(articulo.fecha)}</span>}
+          
+         
+
           <div className="parrafo" dangerouslySetInnerHTML={{ __html: articulo.contenido }} />
-          {articulo.autor && <h4 className="autor">{articulo.autor}</h4>}
+
+         
+
           {siguienteArticulo() && (
             <button className="ver-mas" onClick={irAlSiguienteArticulo}>
-             Leer mas
+              Leer más
             </button>
           )}
         </>

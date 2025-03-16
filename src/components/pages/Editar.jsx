@@ -171,6 +171,7 @@ const Editar = () => {
                   { background: ['transparent', '#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] }
                 ],
                 ['blockquote'],
+                ['image']
               ],
             }}
           />

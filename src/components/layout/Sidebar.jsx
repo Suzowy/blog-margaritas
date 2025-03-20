@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -13,19 +13,13 @@ const formatFecha = (fecha) => {
   }).format(date);
 };
 
-// Mapeo de nombres de meses a sus índices
-// eslint-disable-next-line no-unused-vars
-const meses = [
-  "enero", "febrero", "marzo", "abril", "mayo", "junio",
-  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-];
-
 const Sidebar = ({ articulos = [] }) => {
   const navegar = useNavigate();
   const [mostrarTodo, setMostrarTodo] = useState(false);
   const [cargando, setCargando] = useState(true);
   const [busqueda, setBusqueda] = useState("");
   const [resultados, setResultados] = useState([]);
+  const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([]);
 
   useEffect(() => {
     if (articulos.length > 0) {
@@ -46,22 +40,50 @@ const Sidebar = ({ articulos = [] }) => {
     setBusqueda(query);
 
     if (query.trim() === "") {
-      setResultados(articulos);
+      aplicarFiltros();
       return;
     }
 
     const coincidencias = articulos.filter((articulo) => {
       const titulo = articulo.titulo.toLowerCase();
       const fecha = new Date(articulo.fecha);
-
       const mes = fecha.toLocaleString("es-ES", { month: "long" }).toLowerCase();
       const año = fecha.getFullYear().toString();
-
       return titulo.includes(query) || mes.includes(query) || año.includes(query);
     });
 
     setResultados(coincidencias);
   };
+
+  // Obtener categorías únicas
+  const categoriasUnicas = [...new Set(articulos.map(art => art.categoria).filter(Boolean))];
+
+  // Manejar selección de checkboxes de categoría
+  const manejarSeleccionCategoria = (categoria) => {
+    setCategoriasSeleccionadas((prevSeleccionadas) => {
+      if (prevSeleccionadas.includes(categoria)) {
+        return prevSeleccionadas.filter(cat => cat !== categoria);
+      } else {
+        return [...prevSeleccionadas, categoria];
+      }
+    });
+  };
+
+  // ✅ `useCallback` para evitar que `aplicarFiltros` se recree en cada render
+  const aplicarFiltros = useCallback(() => {
+    let filtrados = articulos;
+
+    if (categoriasSeleccionadas.length > 0) {
+      filtrados = filtrados.filter(articulo => categoriasSeleccionadas.includes(articulo.categoria));
+    }
+
+    setResultados(filtrados);
+  }, [articulos, categoriasSeleccionadas]); // Dependencias actualizadas
+
+  // ✅ Ahora `useEffect` depende de `aplicarFiltros`, que está memoizada con `useCallback`
+  useEffect(() => {
+    aplicarFiltros();
+  }, [aplicarFiltros]);
 
   const articulosAMostrar = mostrarTodo ? resultados : resultados.slice(0, 5);
 
@@ -77,10 +99,32 @@ const Sidebar = ({ articulos = [] }) => {
             name="search_field"
             value={busqueda}
             onChange={filtrarResultados}
-            placeholder="Buscar por título, mes (enero, febrero...) o año (yyyy)"
+            placeholder="Buscar por título, mes o año"
           />
           <button type="submit" id="search">Buscar</button>
         </form>
+      </div>
+
+      {/* Filtro de Categorías con checkboxes */}
+      <div className="categorias">
+        <h2>Filtrar por Categoría</h2>
+        {categoriasUnicas.length > 0 ? (
+          <ul>
+            {categoriasUnicas.map((cat) => (
+              <li key={cat} style={{ display: "flex", alignItems: "center" }}>
+                <input
+                  type="checkbox"
+                  id={cat}
+                  checked={categoriasSeleccionadas.includes(cat)}
+                  onChange={() => manejarSeleccionCategoria(cat)}
+                />
+                <label htmlFor={cat} style={{ marginLeft: "8px", cursor: "pointer" }}>{cat}</label>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No hay categorías disponibles.</p>
+        )}
       </div>
 
       <div className="ultimos-articulos">
@@ -137,7 +181,8 @@ Sidebar.propTypes = {
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       titulo: PropTypes.string.isRequired,
-      fecha: PropTypes.string
+      fecha: PropTypes.string,
+      categoria: PropTypes.string
     })
   )
 };

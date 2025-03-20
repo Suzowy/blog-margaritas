@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import Global from "../../helpers/Global";
 import { Peticion } from "../../helpers/Peticion";
@@ -12,15 +13,29 @@ const Crear = () => {
   const [imagenArchivo, setImagenArchivo] = useState(null);
   const [fecha, setFecha] = useState(new Date().toISOString().split("T")[0]);
   const [contenido, setContenido] = useState("");
+  const [categorias, setCategorias] = useState(["Cápsulas", "Libros", "Comida", "Lugares", "Reflexiones"]);
+  const [categoria, setCategoria] = useState("");
+  const [nuevaCategoria, setNuevaCategoria] = useState("");
+  const [mostrarBotonVolver, setMostrarBotonVolver] = useState(false); // Nuevo estado para mostrar el botón
+
+  const navigate = useNavigate();
 
   const guardarArticulo = async (e) => {
     e.preventDefault();
+
+    let categoriaFinal = categoria === "nueva" ? nuevaCategoria.trim() : categoria;
+
+    if (!categoriaFinal) {
+      setResultado("error");
+      return;
+    }
 
     let nuevoArticulo = {
       ...formulario,
       autor: formulario.autor?.trim() ? formulario.autor : "M&M",
       fecha,
       contenido,
+      categoria: categoriaFinal,
     };
 
     const { datos, error } = await Peticion(Global.url + "crear", "POST", nuevoArticulo);
@@ -41,50 +56,46 @@ const Crear = () => {
         const subida = await Peticion(Global.url + "subir-imagen/" + datos.articulo._id, "POST", formData, true);
 
         if (subida.status === "success") {
-          setResultado("guardado");
-
-          resetForm();
-          setFecha(new Date().toISOString().split("T")[0]);
-          setContenido("");
-          setImagenPreview(null);
-          setImagenArchivo(null);
+          limpiarFormulario();
         } else {
           setResultado("error");
         }
       } else {
-        resetForm();
-        setFecha(new Date().toISOString().split("T")[0]);
-        setContenido("");
-        setImagenPreview(null);
-        setImagenArchivo(null);
+        limpiarFormulario();
       }
     } else {
       setResultado("error");
     }
   };
 
-  const manejarImagen = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImagenArchivo(file);
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImagenPreview(event.target.result);
-      };
-      reader.readAsDataURL(file);
+  // ✅ Función para limpiar el formulario y desplazar la página arriba
+  const limpiarFormulario = () => {
+    resetForm();
+    setFecha(new Date().toISOString().split("T")[0]);
+    setContenido("");
+    setImagenPreview(null);
+    setImagenArchivo(null);
+    setCategoria("");
+    setNuevaCategoria("");
+
+    setMostrarBotonVolver(true); // ✅ Mostrar el botón "Volver al Listado"
+    window.scrollTo(0, 0); // ✅ Llevar la página al inicio
+  };
+
+  const manejarCambioCategoria = (e) => {
+    const seleccion = e.target.value;
+    setCategoria(seleccion);
+
+    if (seleccion !== "nueva") {
+      setNuevaCategoria("");
     }
   };
 
-  const manejarDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setImagenArchivo(file);
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImagenPreview(event.target.result);
-      };
-      reader.readAsDataURL(file);
+  const agregarNuevaCategoria = () => {
+    if (nuevaCategoria.trim() && !categorias.includes(nuevaCategoria.trim())) {
+      setCategorias([...categorias, nuevaCategoria.trim()]);
+      setCategoria(nuevaCategoria.trim());
+      setNuevaCategoria("");
     }
   };
 
@@ -94,6 +105,13 @@ const Crear = () => {
       <span className="form-span">Los campos con * son obligatorios</span>
       <strong>{resultado === "guardado" ? "Artículo guardado con éxito!!" : ""}</strong>
       <strong>{resultado === "error" ? "Los datos proporcionados son incorrectos!!" : ""}</strong>
+
+ {/* ✅ Botón para volver al listado, se muestra solo después de guardar */}
+ {mostrarBotonVolver && (
+        <button className="volver" onClick={() => navigate("/articulos")}>
+          Volver al Listado
+        </button>
+      )}
 
       <form className="formulario" onSubmit={guardarArticulo}>
         <div className="form-group">
@@ -108,13 +126,38 @@ const Crear = () => {
 
         <div className="form-group">
           <label htmlFor="fecha">Fecha <span>*</span></label>
-          <input
-            type="date"
-            name="fecha"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
-          />
+          <input type="date" name="fecha" value={fecha} onChange={(e) => setFecha(e.target.value)} />
         </div>
+
+        {/* Selector de Categoría */}
+        <div className="form-group">
+          <label htmlFor="categoria">Categoría <span>*</span></label>
+          <select name="categoria" value={categoria} onChange={manejarCambioCategoria} required>
+            <option value="">Selecciona una categoría</option>
+            {categorias.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+            <option value="nueva">Agregar nueva categoría</option>
+          </select>
+        </div>
+
+        {/* Input para nueva categoría + botón para agregarla */}
+        {categoria === "nueva" && (
+          <div className="form-group">
+            <label htmlFor="nuevaCategoria">Nueva Categoría <span>*</span></label>
+            <input
+              type="text"
+              name="nuevaCategoria"
+              value={nuevaCategoria}
+              onChange={(e) => setNuevaCategoria(e.target.value)}
+              placeholder="Escribe la nueva categoría"
+              required
+            />
+            <button type="button" className="btn btn-primary" onClick={agregarNuevaCategoria}>
+              Agregar
+            </button>
+          </div>
+        )}
 
         <div className="form-group">
           <label htmlFor="contenido">Contenido <span>*</span></label>
@@ -123,39 +166,32 @@ const Crear = () => {
             onChange={setContenido}
             theme="snow"
             modules={{
-              toolbar: [
-                ['bold', 'italic', 'underline'],
-                ['link'],
-                [
-                  { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] },
-                  { background: ['transparent', '#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] }
-                ],
-                ['blockquote'],
-                ['image']
-              ],
+              toolbar: [['bold', 'italic', 'underline'], ['link'], ['blockquote'], ['image']],
             }}
           />
         </div>
 
-        <div
-          className="form-group drop-zone"
-          onDrop={manejarDrop}
-          onDragOver={(e) => e.preventDefault()}
-        >
+        <div className="form-group drop-zone">
           <label htmlFor="file0">Imagen</label>
-          <input type="file" name="file0" id="file" onChange={manejarImagen} />
+          <input type="file" name="file0" id="file" onChange={(e) => {
+            const file = e.target.files[0];
+            if (file) {
+              setImagenArchivo(file);
+              const reader = new FileReader();
+              reader.onload = (event) => setImagenPreview(event.target.result);
+              reader.readAsDataURL(file);
+            }
+          }} />
           <div className="drop-area">
             <span>Arrastra y suelta una imagen aquí o haz clic para seleccionar</span>
           </div>
-          {imagenPreview && (
-            <div className="preview-container">
-              <img src={imagenPreview} alt="Vista previa" className="preview-image" />
-            </div>
-          )}
+          {imagenPreview && <img src={imagenPreview} alt="Vista previa" className="preview-image" />}
         </div>
 
         <input type="submit" value="Guardar" className="btn btn-success" />
       </form>
+
+     
     </>
   );
 };

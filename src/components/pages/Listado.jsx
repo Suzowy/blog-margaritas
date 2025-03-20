@@ -15,11 +15,12 @@ const formatFecha = (fecha) => {
         year: "numeric"
     }).format(date);
 };
+
 const Listado = ({ articulos, setArticulos }) => {
     const { isAuthenticated } = useContext(AuthContext);
     const [paginaActual, setPaginaActual] = useState(1);
-    const articulosPorPagina = 10;
-    const totalPaginas = Math.ceil(articulos.length / articulosPorPagina);
+    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
+    const articulosPorPagina = 6;
 
     const eliminar = async (id) => {
         let { datos } = await Peticion(Global.url + "articulo/" + id, "DELETE");
@@ -40,55 +41,48 @@ const Listado = ({ articulos, setArticulos }) => {
         }
     };
 
+    // Filtrar artículos por categoría seleccionada
+    const articulosFiltrados = categoriaSeleccionada
+        ? articulos.filter(articulo => articulo.categoria === categoriaSeleccionada)
+        : articulos;
+
+    // Paginación
+    const totalPaginas = Math.ceil(articulosFiltrados.length / articulosPorPagina);
     const indiceInicial = (paginaActual - 1) * articulosPorPagina;
     const indiceFinal = indiceInicial + articulosPorPagina;
-    const articulosPaginados = articulos.slice(indiceInicial, indiceFinal);
+    const articulosPaginados = articulosFiltrados.slice(indiceInicial, indiceFinal);
 
-    // Lógica para manejar las páginas visibles
+    // Función para generar los botones de paginación
     const renderPaginacion = () => {
         const paginas = [];
         const maxVisiblePages = 6;
 
-        // Si hay más de 6 páginas, renderizar las primeras 3, las últimas 3 y la página actual.
         if (totalPaginas > maxVisiblePages) {
             if (paginaActual <= 4) {
-                for (let i = 1; i <= 5; i++) {
-                    paginas.push(i);
-                }
-                paginas.push('...');
+                for (let i = 1; i <= 5; i++) paginas.push(i);
+                paginas.push("...");
                 paginas.push(totalPaginas);
             } else if (paginaActual >= totalPaginas - 3) {
                 paginas.push(1);
-                paginas.push('...');
-                for (let i = totalPaginas - 4; i <= totalPaginas; i++) {
-                    paginas.push(i);
-                }
+                paginas.push("...");
+                for (let i = totalPaginas - 4; i <= totalPaginas; i++) paginas.push(i);
             } else {
                 paginas.push(1);
-                paginas.push('...');
-                for (let i = paginaActual - 2; i <= paginaActual + 2; i++) {
-                    paginas.push(i);
-                }
-                paginas.push('...');
+                paginas.push("...");
+                for (let i = paginaActual - 2; i <= paginaActual + 2; i++) paginas.push(i);
+                paginas.push("...");
                 paginas.push(totalPaginas);
             }
         } else {
-            for (let i = 1; i <= totalPaginas; i++) {
-                paginas.push(i);
-            }
+            for (let i = 1; i <= totalPaginas; i++) paginas.push(i);
         }
 
         return paginas.map((pagina, index) => (
-
             <button
                 key={index}
                 className={`pagina ${paginaActual === pagina ? 'activa' : ''}`}
-                onClick={() => {
-                    if (pagina !== '...') {
-                        setPaginaActual(pagina);
-                    }
-                }}
-                disabled={pagina === '...'}
+                onClick={() => pagina !== "..." && setPaginaActual(pagina)}
+                disabled={pagina === "..."}
             >
                 {pagina}
             </button>
@@ -97,25 +91,20 @@ const Listado = ({ articulos, setArticulos }) => {
 
     return (
         <>
-
-            {/* <div className="paginacion">
-                <button className="ver-mas"
-                    onClick={() => setPaginaActual(paginaActual - 1)}
-                    disabled={paginaActual === 1}
-                >
-                    Anterior
-                </button>
-                {renderPaginacion()}
-                <button className="ver-mas"
-                    onClick={() => setPaginaActual(paginaActual + 1)}
-                    disabled={paginaActual >= totalPaginas}
-                >
-                    Siguiente
-                </button>
-            </div> */}
             <blockquote className='intro'>
                 Un lugar donde compartir la belleza de las pequeñas cosas y soñar con la próxima aventura
             </blockquote>
+
+            {/* Botón para limpiar el filtro */}
+            {categoriaSeleccionada && (
+                <button className="volver" onClick={() => {
+                    setCategoriaSeleccionada(null);
+                    setPaginaActual(1); // Reiniciar paginación al limpiar el filtro
+                }}>
+                    Ver todos los artículos
+                </button>
+            )}
+
             {articulosPaginados.map((articulo) => (
                 <article key={articulo._id} className="articulo-item">
                     <div className="mascara">
@@ -131,6 +120,17 @@ const Listado = ({ articulos, setArticulos }) => {
 
                     <div className="datos">
                         <h3 className="title">{articulo.titulo}</h3>
+
+                        {/* Filtrar artículos al hacer clic en la categoría */}
+                        {articulo.categoria && (
+                            <p className="categoria" onClick={() => {
+                                setCategoriaSeleccionada(articulo.categoria);
+                                setPaginaActual(1); // Reiniciar paginación al seleccionar categoría
+                            }}>
+                                Categoría: {articulo.categoria}
+                            </p>
+                        )}
+
                         <p className="description" dangerouslySetInnerHTML={{ __html: articulo.contenido }}></p>
                         <p className="more">
                             <Link to={`/articulo/${articulo._id}`}>Leer más...</Link>
@@ -148,25 +148,29 @@ const Listado = ({ articulos, setArticulos }) => {
                 </article>
             ))}
 
-            <div className="paginacion">
-                <button className="ver-mas"
-                    onClick={() => setPaginaActual(paginaActual - 1)}
-                    disabled={paginaActual === 1}
-                >
-                    Anterior
-                </button>
-                {renderPaginacion()}
-                <button className="ver-mas"
-                    onClick={() => setPaginaActual(paginaActual + 1)}
-                    disabled={paginaActual >= totalPaginas}
-                >
-                    Siguiente
-                </button>
-            </div>
+            {/* Paginación */}
+            {totalPaginas > 1 && (
+                <div className="paginacion">
+                    <button className="ver-mas"
+                        onClick={() => setPaginaActual(paginaActual - 1)}
+                        disabled={paginaActual === 1}
+                    >
+                        Anterior
+                    </button>
+
+                    {renderPaginacion()}
+
+                    <button className="ver-mas"
+                        onClick={() => setPaginaActual(paginaActual + 1)}
+                        disabled={paginaActual >= totalPaginas}
+                    >
+                        Siguiente
+                    </button>
+                </div>
+            )}
         </>
     );
 };
-
 
 Listado.propTypes = {
     articulos: PropTypes.array.isRequired,

@@ -8,6 +8,7 @@ const Articulo = () => {
   const [articulo, setArticulo] = useState({});
   const [cargando, setCargando] = useState(true);
   const [articulos, setArticulos] = useState([]);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null); // Estado para filtrar por categoría
   const params = useParams();
   const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
@@ -23,6 +24,7 @@ const Articulo = () => {
     const { datos } = await Peticion(Global.url + "articulo/" + params.id, "GET");
     if (datos.status === "success") {
       setArticulo(datos.articulo);
+      setCategoriaSeleccionada(null); // Reiniciar filtro de categoría al cargar un nuevo artículo
     }
     setCargando(false);
   }, [params.id]);
@@ -77,6 +79,11 @@ const Articulo = () => {
     }).format(date);
   };
 
+  // Filtrar artículos por categoría
+  const articulosRelacionados = categoriaSeleccionada
+    ? articulos.filter((art) => art.categoria === categoriaSeleccionada && art._id !== articulo._id)
+    : [];
+
   return (
     <div className="jumbo">
       {cargando ? (
@@ -84,6 +91,7 @@ const Articulo = () => {
       ) : (
         <>
           <div className="articulo-mascara">
+
             <img
               src={
                 articulo.imagen && articulo.imagen !== "default.png"
@@ -104,17 +112,48 @@ const Articulo = () => {
           <h1>{articulo.titulo}</h1>
           {articulo.autor && <h4 className="autor">{articulo.autor}</h4>}
           {articulo.fecha && <span className="fecha">{formatFecha(articulo.fecha)}</span>}
-          
-         
 
           <div className="parrafo" dangerouslySetInnerHTML={{ __html: articulo.contenido }} />
-
-         
 
           {siguienteArticulo() && (
             <button className="ver-mas" onClick={irAlSiguienteArticulo}>
               Leer más
             </button>
+          )}
+
+
+          {articulo.categoria && (
+            <p
+              className="categoria"
+              onClick={() => setCategoriaSeleccionada(articulo.categoria)}
+              style={{ cursor: "pointer", color: "#3e7b6ee2", fontWeight: "bold" }}
+            >
+              Categoría: {articulo.categoria}
+            </p>
+          )}
+
+          {/* Mostrar artículos relacionados de la misma categoría */}
+          {categoriaSeleccionada && (
+            <div className="relacionados">
+              <h3>Más artículos con categoría &quot;{categoriaSeleccionada}&quot;</h3>
+              {articulosRelacionados.length > 0 ? (
+                articulosRelacionados.map((art) => (
+                  <div key={art._id} className="relacionado-item">
+                    <Link to={`/articulo/${art._id}`}>
+                      <h4>{art.titulo}</h4>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <h4>No hay más artículos en esta categoría.</h4>
+              )}
+              <button className="delete" onClick={() => {
+                setCategoriaSeleccionada(null); // Restablece el filtro
+                navigate("/"); // Redirige a la página principal (Listado)
+              }}>
+                volver al listado
+              </button>
+            </div>
           )}
         </>
       )}

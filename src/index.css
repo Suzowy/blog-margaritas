@@ -182,7 +182,7 @@ h6 {
   align-items: center;
 }
 
-.jumbo {
+.jumbo{
   position: relative;
   background-color: #ffffffdf;
   padding: 30px;
@@ -203,7 +203,8 @@ h6 {
   word-break: break-word; /* Evita que palabras largas rompan el diseño */
 }
 
-.parrafo p, .parrafo * {
+.parrafo p,
+.parrafo * {
   margin: 0 auto;
   font-size: 17px !important;
   white-space: normal; /* Permite que el texto se ajuste sin saltos raros */
@@ -211,10 +212,9 @@ h6 {
   line-height: 1.5;
 }
 
-.parrafo blockquote{
+.parrafo blockquote {
   font-size: 25px !important;
-  }
-
+}
 
 .articulo-item {
   display: flex;
@@ -311,7 +311,7 @@ h6 {
 .articulo-item .edit,
 .articulo-item .delete,
 .jumbo .delete,
-.jumbo .edit {
+.jumbo .edit, .volver{
   background-color: var(--color5); /* Botones de color pastel */
   color: white;
   border: none;
@@ -375,7 +375,7 @@ h6 {
 }
 
 /* Estilos para Formularios Generales */
-form {
+form, .categorias {
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0px 4px 16px rgb(255, 255, 255);
@@ -498,7 +498,6 @@ textarea::placeholder {
   color: #fff;
 }
 
-
 /* Área de edición */
 .ql-editor {
   font-family: var(--fuente-secundaria) !important;
@@ -506,7 +505,8 @@ textarea::placeholder {
   line-height: 1.6;
 }
 
-.ql-editor p, .jumbo p {
+.ql-editor p,
+.jumbo p {
   font-family: var(--fuente-secundaria) !important;
   font-size: 20px;
   text-align: justify;
@@ -516,8 +516,8 @@ textarea::placeholder {
 
 .ql-editor span,
 .ql-editor li,
-.jumbo li ,
-.jumbo span{
+.jumbo li,
+.jumbo span {
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   font-size: 20px;
@@ -541,8 +541,6 @@ textarea::placeholder {
   text-underline-offset: 2px;
 }
 
-
-
 /* Placeholder (texto de ayuda) */
 .ql-editor::before {
   font-family: var(--fuente-secundaria);
@@ -554,20 +552,19 @@ textarea::placeholder {
   font-family: var(--fuente-secundaria) !important;
 } */
 
-
 /* Estilos personalizados para los bloques de cita */
-.intro{
+.intro {
   font-family: var(--fuente-handmade);
   color: var(--color9);
   text-align: center;
   padding: 5px;
   margin-top: 50px;
-  width:90% ;
+  width: 90%;
   font-size: 20px;
 }
 
 .ql-editor blockquote,
-.jumbo blockquote{
+.jumbo blockquote {
   font-family: var(--fuente-handmade) !important;
   color: var(--color1);
   text-align: center;
@@ -576,8 +573,8 @@ textarea::placeholder {
 
 .ql-editor strong,
 .jumbo strong {
-display:inline-flex;
-text-align: justify;
+  display: inline-flex;
+  text-align: justify;
   font-family: var(--fuente-secundaria) !important;
   color: var(--color1);
   width: 100%;
@@ -841,6 +838,34 @@ input[type="time"]:focus {
 }
 
 /* Estilo para la imagen del artículo */
+
+p.categoria {
+  font-size: 18px;
+  font-family: var(--fuente-handmade) !important;
+  color: var(--color6);
+  border-top: 1px solid var(--color2);
+  width: 170px;
+  text-align: center;
+  padding: 5px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.datos p.categoria {
+  font-size: 17px;
+  font-family: var(--fuente-handmade) !important;
+  color: var(--color6);
+  border-top: 1px solid var(--color2);
+  width: 160px;
+  text-align: center;
+  padding: 5px;
+  margin: 0 auto;
+  cursor: pointer;
+
+}
+
+
 .articulo-mascara {
   width: 100%;
   margin: 0 auto;
@@ -888,7 +913,7 @@ input[type="time"]:focus {
 
 .parrafo img {
   max-width: calc(50% - 10px);
- height:auto;
+  height: auto;
   margin-right: 10px;
   margin-top: 10px;
   border-radius: 5px;
@@ -901,8 +926,6 @@ input[type="time"]:focus {
   max-width: 100%;
   vertical-align: bottom;
 }
-
-
 
 /* Estilo para el estado de "Cargando..." */
 .jumbo .loading {
@@ -1061,14 +1084,14 @@ body {
 }
 
 .cerrar-sesion {
-  background-color:transparent;
+  background-color: transparent;
   color: var(--color9);
   padding: 12px 12px;
   font-size: 15px;
   border: none;
   cursor: pointer;
 }
-.cerrar-sesion:hover{
+.cerrar-sesion:hover {
   color: rgb(177, 29, 29);
 }
 
@@ -1077,12 +1100,73 @@ body {
   text-decoration: none;
 }
 
-.botones .button:hover{
+.botones .button:hover {
   background-color: var(--color5);
 }
 .lateral {
   background-color: var(--color3);
   border-left: 1px solid rgb(255, 255, 255);
+}
+/* Contenedor de categorías */
+/* .categorias {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+} */
+
+
+
+
+/* Lista de categorías */
+.categorias ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Estilo de cada elemento de la lista */
+.categorias li {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 5px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  border-bottom: 1px solid white;
+}
+
+/* Animación al pasar el mouse sobre las categorías */
+.categorias li:hover {
+  background: #ebedee;
+  transform: scale(1.02);
+}
+
+/* Checkbox dentro de las categorías */
+.categorias input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color6); /* Color principal */
+  cursor: pointer;
+}
+
+/* Etiquetas de categoría */
+.categorias label {
+  font-family: var(--fuente-secundaria);
+  font-size: 16px;
+  margin-left: 10px;
+  color: var(--color9);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* Categoría seleccionada */
+.categorias input[type="checkbox"]:checked + label {
+  color: var(--color6);
+  font-weight: 600;
 }
 
 /* Pie de Página */
@@ -1209,6 +1293,8 @@ body {
   }
 
   /* Ajustes para artículos */
+
+
   .articulo-item {
     flex-direction: row;
     width: 90%;
@@ -1238,10 +1324,9 @@ body {
 }
 
 @media screen and (max-width: 480px) {
-
-  .intro{
+  .intro {
     margin-top: 20px;
-    width:90% ;
+    width: 90%;
   }
 
   .portada blockquote {
@@ -1271,7 +1356,7 @@ body {
   }
   .texto-left p {
     font-size: 15px;
-}
+  }
 
   .articulo-item {
     flex-direction: column;
@@ -1316,14 +1401,14 @@ body {
     overflow: hidden;
   }
 
-  .parrafo p, .parrafo * {
+  .parrafo p,
+  .parrafo * {
     font-size: 16px !important;
   }
 
-  .parrafo blockquote{
-  font-size: 20px !important;
+  .parrafo blockquote {
+    font-size: 20px !important;
   }
-
 
   .ultimos-articulos h2 {
     margin-top: 60px;
@@ -1387,6 +1472,11 @@ body {
   .ver-menos {
     margin-top: 5px;
     margin-bottom: 60px;
+  }
+
+  .relacionados{
+  padding: 15px;
+  font-size: 12px;
   }
 
   .footer .title {

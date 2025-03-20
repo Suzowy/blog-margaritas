@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Importa los estilos de Quill
+import "react-quill/dist/quill.snow.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { Peticion } from "../../helpers/Peticion";
 import Global from "../../helpers/Global";
@@ -10,17 +10,23 @@ const Editar = () => {
   const [imagenPreview, setImagenPreview] = useState(null);
   const [imagenArchivo, setImagenArchivo] = useState(null);
   const [fecha, setFecha] = useState("");
-  const [contenido, setContenido] = useState("");  // Guardar el contenido con formato
+  const [contenido, setContenido] = useState("");
+  const [categorias, setCategorias] = useState(["Cápsulas", "Lectura", "Comida", "Lugares", "Reflexiones"]);
+  const [categoria, setCategoria] = useState("");
+  const [nuevaCategoria, setNuevaCategoria] = useState("");
+  const [mostrarBotonVolver, setMostrarBotonVolver] = useState(false);
+
   const [articulo, setArticulo] = useState({
     titulo: '',
     autor: '',
     fecha: '',
-    contenido: ''
+    contenido: '',
+    categoria: ''
   });
+
   const params = useParams();
   const navigate = useNavigate();
 
-  // Función para cargar los datos del artículo
   const conseguirArticulo = useCallback(async () => {
     const { datos } = await Peticion(Global.url + "articulo/" + params.id, "GET");
 
@@ -29,10 +35,12 @@ const Editar = () => {
         titulo: datos.articulo.titulo,
         autor: datos.articulo.autor,
         fecha: datos.articulo.fecha || new Date().toISOString().split("T")[0],
-        contenido: datos.articulo.contenido || ""
+        contenido: datos.articulo.contenido || "",
+        categoria: datos.articulo.categoria || ""
       });
       setFecha(datos.articulo.fecha || new Date().toISOString().split("T")[0]);
-      setContenido(datos.articulo.contenido || ""); // Cargar contenido del artículo
+      setContenido(datos.articulo.contenido || "");
+      setCategoria(datos.articulo.categoria || "");
     }
   }, [params.id]);
 
@@ -40,14 +48,16 @@ const Editar = () => {
     conseguirArticulo();
   }, [conseguirArticulo]);
 
-  // Función para actualizar los datos del artículo
   const editarArticulo = async (e) => {
     e.preventDefault();
+
+    let categoriaFinal = categoria === "nueva" ? nuevaCategoria.trim() : categoria;
 
     let nuevoArticulo = {
       ...articulo,
       fecha,
-      contenido,  // El contenido con formato se guarda aquí
+      contenido,
+      categoria: categoriaFinal
     };
 
     const { datos, error } = await Peticion(Global.url + "articulo/" + params.id, "PUT", nuevoArticulo);
@@ -69,43 +79,36 @@ const Editar = () => {
 
         if (subida.status === "success") {
           setResultado("guardado");
-          navigate("/articulos"); // Redirige después de guardar
         } else {
           setResultado("error");
         }
       }
+
+      // ✅ Restablecer los valores del formulario después de guardar
+      setArticulo({
+        titulo: '',
+        autor: '',
+        fecha: new Date().toISOString().split("T")[0],
+        contenido: '',
+        categoria: ''
+      });
+      setFecha(new Date().toISOString().split("T")[0]);
+      setContenido("");
+      setCategoria("");
+      setImagenPreview(null);
+      setImagenArchivo(null);
+      setNuevaCategoria("");
+
+      // ✅ Mostrar el botón "Volver al Listado"
+      setMostrarBotonVolver(true);
+
+      // ✅ Llevar al inicio de la página después de guardar
+      window.scrollTo(0, 0);
     } else {
       setResultado("error");
     }
   };
 
-  // Manejo de la imagen
-  const manejarImagen = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImagenArchivo(file);
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImagenPreview(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const manejarDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setImagenArchivo(file);
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImagenPreview(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // Manejar el cambio en los campos
   const manejarCambio = (e) => {
     const { name, value } = e.target;
     setArticulo((prevArticulo) => ({
@@ -114,90 +117,105 @@ const Editar = () => {
     }));
   };
 
+  const manejarCambioCategoria = (e) => {
+    const seleccion = e.target.value;
+    setCategoria(seleccion);
+
+    if (seleccion !== "nueva") {
+      setNuevaCategoria("");
+    }
+  };
+
+  const agregarNuevaCategoria = () => {
+    if (nuevaCategoria.trim() && !categorias.includes(nuevaCategoria.trim())) {
+      setCategorias([...categorias, nuevaCategoria.trim()]);
+      setCategoria(nuevaCategoria.trim());
+      setNuevaCategoria("");
+    }
+  };
+
   return (
     <>
       <h2 className="crear-h2">Editar Artículo</h2>
       <span className="form-span">Los campos con * son obligatorios</span>
       <strong>{resultado === "guardado" ? "Artículo guardado con éxito!!" : ""}</strong>
       <strong>{resultado === "error" ? "Los datos proporcionados son incorrectos!!" : ""}</strong>
+ {/* ✅ Botón para volver al listado, se muestra solo después de guardar */}
+ {mostrarBotonVolver && (
+        <button className="volver" onClick={() => navigate("/articulos")}>
+          Volver al Listado
+        </button>
+      )}
 
       <form className="formulario" onSubmit={editarArticulo}>
         <div className="form-group">
           <label htmlFor="titulo">Título <span>*</span></label>
-          <input
-            type="text"
-            name="titulo"
-            onChange={manejarCambio}
-            value={articulo.titulo}
-            required
-            placeholder="Escribe el título de tu artículo."
-          />
+          <input type="text" name="titulo" onChange={manejarCambio} value={articulo.titulo} required />
         </div>
 
         <div className="form-group">
           <label htmlFor="autor">Autor <span>*</span></label>
-          <input
-            type="text"
-            name="autor"
-            onChange={manejarCambio}
-            value={articulo.autor}
-            required
-            placeholder="Nombre del autor."
-          />
+          <input type="text" name="autor" onChange={manejarCambio} value={articulo.autor} required />
         </div>
 
         <div className="form-group">
           <label htmlFor="fecha">Fecha <span>*</span></label>
-          <input
-            type="date"
-            name="fecha"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
-          />
+          <input type="date" name="fecha" value={fecha} onChange={(e) => setFecha(e.target.value)} />
         </div>
+
+        {/* Selector de Categoría */}
+        <div className="form-group">
+          <label htmlFor="categoria">Categoría <span>*</span></label>
+          <select name="categoria" value={categoria} onChange={manejarCambioCategoria} required>
+            <option value="">Selecciona una categoría</option>
+            {categorias.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+            <option value="nueva">Agregar nueva categoría</option>
+          </select>
+        </div>
+
+        {/* Input para nueva categoría */}
+        {categoria === "nueva" && (
+          <div className="form-group">
+            <label htmlFor="nuevaCategoria">Nueva Categoría <span>*</span></label>
+            <input
+              type="text"
+              name="nuevaCategoria"
+              value={nuevaCategoria}
+              onChange={(e) => setNuevaCategoria(e.target.value)}
+              placeholder="Escribe la nueva categoría"
+              required
+            />
+            <button type="button" className="btn btn-primary" onClick={agregarNuevaCategoria}>
+              Agregar
+            </button>
+          </div>
+        )}
 
         <div className="form-group">
           <label htmlFor="contenido">Contenido <span>*</span></label>
-          <ReactQuill
-            value={contenido}
-            onChange={setContenido}  // Aquí se actualiza el contenido con formato
-            theme="snow"
-            modules={{
-              toolbar: [
-                ['bold', 'italic', 'underline'],
-                ['link'],
-                [
-                  { color: ['#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] },
-                  { background: ['transparent', '#2f2f2fe9', '#97afa6', '#3e7b6ee2','#721c24', '#b9a782', '#ebe9e5', '#bbb2a1', '#ffffff'] }
-                ],
-                ['blockquote'],
-                ['image']
-              ],
-            }}
-          />
+          <ReactQuill value={contenido} onChange={setContenido} theme="snow" />
         </div>
 
-        <div
-          className="form-group drop-zone"
-          onDrop={manejarDrop}
-          onDragOver={(e) => e.preventDefault()}
-        >
+        <div className="form-group drop-zone">
           <label htmlFor="file0">Imagen</label>
-          <input type="file" name="file0" id="file" onChange={manejarImagen} />
-          <div className="drop-area">
-            <span>Arrastra y suelta una imagen aquí o haz clic para seleccionar</span>
-          </div>
-          {imagenPreview && (
-            <div className="preview-container">
-              <img src={imagenPreview} alt="Vista previa" className="preview-image" />
-            </div>
-          )}
+          <input type="file" name="file0" id="file" onChange={(e) => {
+            const file = e.target.files[0];
+            if (file) {
+              setImagenArchivo(file);
+              const reader = new FileReader();
+              reader.onload = (event) => setImagenPreview(event.target.result);
+              reader.readAsDataURL(file);
+            }
+          }} />
+          {imagenPreview && <img src={imagenPreview} alt="Vista previa" className="preview-image" />}
         </div>
 
         <input type="submit" value="Guardar" className="btn btn-success" />
-        <strong>{resultado === "guardado" ? "Artículo guardado con éxito!!" : ""}</strong>
-        <strong>{resultado === "error" ? "Los datos proporcionados son incorrectos!!" : ""}</strong>
       </form>
+
+     
     </>
   );
 };
